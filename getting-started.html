@@ -62,9 +62,9 @@
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
-    
     <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
+    
+    <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
     
 </ul>
 <div class="relations">
@@ -103,48 +103,50 @@
 </div>
 <div class="section" id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
-<p>In the root directory of each enabled repository, create a <cite>.mergify.yml</cite> file with the minimal content to apply the defaults policies:</p>
+<p>In the root directory of each enabled repository, create a <cite>.mergify.yml</cite> file with the minimal content to apply the defaults rules:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> myrepository
-$ <span class="nb">echo</span> <span class="s2">&quot;policies:&quot;</span> &gt; .mergify.yml
+$ <span class="nb">echo</span> <span class="s2">&quot;rules:&quot;</span> &gt; .mergify.yml
 $ git add .mergify.yml
 $ git commit -m <span class="s2">&quot;Enable mergify.io&quot;</span>
 $ git push
 </pre></div>
 </div>
 <p>A more realistic example of the <cite>.mergify.yml</cite> file would look like :</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">policies</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">required_status_checks</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">contexts</span><span class="p p-Indicator">:</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">continuous-integration/travis-ci</span>
-    <span class="l l-Scalar l-Scalar-Plain">required_pull_request_reviews</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">required_approving_review_count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">required_status_checks</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">contexts</span><span class="p p-Indicator">:</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">continuous-integration/travis-ci</span>
+      <span class="l l-Scalar l-Scalar-Plain">required_pull_request_reviews</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">required_approving_review_count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
 </pre></div>
 </div>
 <p>The key <cite>default</cite> stores the default merging rules to use on all branches. The <cite>required_status_checks</cite> lists all checks that must pass before merging a pull request.
 The <cite>required_pull_request_reviews</cite> defines how many reviewer of the repository should approve the pull request before it gets merged.</p>
-<p>You can define a per branch policy using the <cite>branches</cite> settings. To match multiple branches at once, you can use a regular expression:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">policies</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">required_status_checks</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">contexts</span><span class="p p-Indicator">:</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">continuous-integration/travis-ci</span>
-    <span class="l l-Scalar l-Scalar-Plain">required_pull_request_reviews</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">required_approving_review_count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
-  <span class="l l-Scalar l-Scalar-Plain">branches</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">stable/.*</span><span class="p p-Indicator">:</span>
+<p>You can define a per branch rule using the <cite>branches</cite> settings. To match multiple branches at once, you can use a regular expression:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">required_status_checks</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">contexts</span><span class="p p-Indicator">:</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">continuous-integration/travis-ci</span>
       <span class="l l-Scalar l-Scalar-Plain">required_pull_request_reviews</span><span class="p p-Indicator">:</span>
-        <span class="l l-Scalar l-Scalar-Plain">required_approving_review_count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+        <span class="l l-Scalar l-Scalar-Plain">required_approving_review_count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+    <span class="l l-Scalar l-Scalar-Plain">branches</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">stable/.*</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">required_pull_request_reviews</span><span class="p p-Indicator">:</span>
+          <span class="l l-Scalar l-Scalar-Plain">required_approving_review_count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
 </pre></div>
 </div>
-<p>Mergify supports every available GitHub branch protection feature. You can read more detail on each feature in [GitHub branch API documentation](<a class="reference external" href="https://developer.github.com/v3/repos/branches/#update-branch-protection">https://developer.github.com/v3/repos/branches/#update-branch-protection</a>).</p>
+<p>Mergify supports every available GitHub branch protection feature. You can read more detail on each feature in <a class="reference external" href="https://developer.github.com/v3/repos/branches/#update-branch-protection">GitHub branch API documentation</a>.</p>
 </div>
 <div class="section" id="mergify-io-is-now-ready-what-will-happen-next">
 <h2>Mergify.io is now ready, what will happen next?<a class="headerlink" href="#mergify-io-is-now-ready-what-will-happen-next" title="Permalink to this headline">¶</a></h2>
 <p>When a contributor sends a pull request to the repository, Mergify will post a status check about the state
 of the pull request according to the defined rules.</p>
 <img alt="status check" src="_images/mergify-status-ko.png" />
-<p>When all criterias of the policies are satisfied, Mergify will merge the base branch into the pull request if the pull request is not up-to-date with the base branch. This is made to ensure that the pull request is tested one last time while being up-to-date with the base branch.</p>
+<p>When all criterias of the rules are satisfied, Mergify will merge the base branch into the pull request if the pull request is not up-to-date with the base branch. This is made to ensure that the pull request is tested one last time while being up-to-date with the base branch.</p>
 <p>Once the required services status are approved, Mergify will automatically merge the pull request.</p>
 <img alt="merge" src="_images/mergify-merge.png" />
 <p>You can follow the state of the Mergify merge queue at <a class="reference external" href="https://mergify.io/dashboard">https://mergify.io/dashboard</a></p>
