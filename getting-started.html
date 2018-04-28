@@ -53,7 +53,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#mergify-io-is-now-ready-what-will-happen-next">Mergify.io is now ready, what will happen next?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#default-policy-configuration">Default policy configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
@@ -63,9 +62,9 @@
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
-    
     <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
+    
+    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
     
 </ul>
 <div class="relations">
@@ -117,7 +116,7 @@ $ git push
   <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">required_status_checks</span><span class="p p-Indicator">:</span>
       <span class="l l-Scalar l-Scalar-Plain">contexts</span><span class="p p-Indicator">:</span>
-        <span class="l l-Scalar l-Scalar-Plain">1. continuous-integration/travis-ci</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">continuous-integration/travis-ci</span>
     <span class="l l-Scalar l-Scalar-Plain">required_pull_request_reviews</span><span class="p p-Indicator">:</span>
       <span class="l l-Scalar l-Scalar-Plain">required_approving_review_count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
 </pre></div>
@@ -129,7 +128,7 @@ The <cite>required_pull_request_reviews</cite> defines how many reviewer of the 
   <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">required_status_checks</span><span class="p p-Indicator">:</span>
       <span class="l l-Scalar l-Scalar-Plain">contexts</span><span class="p p-Indicator">:</span>
-        <span class="l l-Scalar l-Scalar-Plain">1. continuous-integration/travis-ci</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">continuous-integration/travis-ci</span>
     <span class="l l-Scalar l-Scalar-Plain">required_pull_request_reviews</span><span class="p p-Indicator">:</span>
       <span class="l l-Scalar l-Scalar-Plain">required_approving_review_count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
   <span class="l l-Scalar l-Scalar-Plain">branches</span><span class="p p-Indicator">:</span>
@@ -150,21 +149,6 @@ of the pull request according to the defined rules.</p>
 <img alt="merge" src="_images/mergify-merge.png" />
 <p>You can follow the state of the Mergify merge queue at <a class="reference external" href="https://mergify.io/dashboard">https://mergify.io/dashboard</a></p>
 <p>Now, that Mergify.io is setup, you can go back on what matters for your project and let us babysit your pull requests!</p>
-</div>
-<div class="section" id="default-policy-configuration">
-<h2>Default policy configuration<a class="headerlink" href="#default-policy-configuration" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">required_status_checks</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">strict</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
-  <span class="l l-Scalar l-Scalar-Plain">contexts</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">1. continuous-integration/travis-ci</span>
-<span class="l l-Scalar l-Scalar-Plain">required_pull_request_reviews</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">dismiss_stale_reviews</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-  <span class="l l-Scalar l-Scalar-Plain">require_code_owner_reviews</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-  <span class="l l-Scalar l-Scalar-Plain">required_approving_review_count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-<span class="l l-Scalar l-Scalar-Plain">restrictions</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
-<span class="l l-Scalar l-Scalar-Plain">enforce_admins</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-</pre></div>
-</div>
 </div>
 </div>
 
