@@ -113,8 +113,8 @@ $ git push
 </div>
 <p>A more realistic example of the <cite>.mergify.yml</cite> file would look like :</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
       <span class="l l-Scalar l-Scalar-Plain">required_status_checks</span><span class="p p-Indicator">:</span>
         <span class="l l-Scalar l-Scalar-Plain">contexts</span><span class="p p-Indicator">:</span>
           <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">continuous-integration/travis-ci</span>
@@ -126,14 +126,15 @@ $ git push
 The <cite>required_pull_request_reviews</cite> defines how many reviewer of the repository should approve the pull request before it gets merged.</p>
 <p>You can define a per branch rule using the <cite>branches</cite> settings. To match multiple branches at once, you can use a regular expression:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
       <span class="l l-Scalar l-Scalar-Plain">required_status_checks</span><span class="p p-Indicator">:</span>
         <span class="l l-Scalar l-Scalar-Plain">contexts</span><span class="p p-Indicator">:</span>
           <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">continuous-integration/travis-ci</span>
       <span class="l l-Scalar l-Scalar-Plain">required_pull_request_reviews</span><span class="p p-Indicator">:</span>
         <span class="l l-Scalar l-Scalar-Plain">required_approving_review_count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
-    <span class="l l-Scalar l-Scalar-Plain">branches</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">branches</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
       <span class="l l-Scalar l-Scalar-Plain">stable/.*</span><span class="p p-Indicator">:</span>
         <span class="l l-Scalar l-Scalar-Plain">required_pull_request_reviews</span><span class="p p-Indicator">:</span>
           <span class="l l-Scalar l-Scalar-Plain">required_approving_review_count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
