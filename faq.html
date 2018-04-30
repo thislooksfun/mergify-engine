@@ -16,7 +16,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Getting Started" href="getting-started.html" />
+    <link rel="prev" title="Configuration file" href="configuration.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -49,9 +49,9 @@
 <h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration file</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">FAQ</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#where-is-the-mergify-policy-file-located">Where is the mergify policy file located?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#what-is-the-default-rule-configuration">What is the default rule configuration?</a></li>
 </ul>
 </li>
 </ul>
@@ -60,16 +60,16 @@
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
-    
     <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
+    
+    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
     
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="getting-started.html" title="previous chapter">Getting Started</a></li>
+      <li>Previous: <a href="configuration.html" title="previous chapter">Configuration file</a></li>
   </ul></li>
 </ul>
 </div>
@@ -96,60 +96,6 @@
 <div class="section" id="where-is-the-mergify-policy-file-located">
 <h2>Where is the mergify policy file located?<a class="headerlink" href="#where-is-the-mergify-policy-file-located" title="Permalink to this headline">¶</a></h2>
 <p>In the root directory of the repository with the name <cite>.mergify.yml</cite>.</p>
-</div>
-<div class="section" id="what-is-the-default-rule-configuration">
-<h2>What is the default rule configuration?<a class="headerlink" href="#what-is-the-default-rule-configuration" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">protection</span><span class="p">:</span>
-  <span class="c1">#</span>
-  <span class="c1"># Require status checks to pass before merging. Set to null to disable.</span>
-  <span class="n">required_status_checks</span><span class="p">:</span>
-    <span class="c1"># Require branches to be up to date before merging.</span>
-    <span class="n">strict</span><span class="p">:</span> <span class="kc">True</span>
-    <span class="c1"># The list of status checks to require in order to merge into this branch</span>
-    <span class="n">contexts</span><span class="p">:</span>
-        <span class="o">-</span> <span class="n">continuous</span><span class="o">-</span><span class="n">integration</span><span class="o">/</span><span class="n">travis</span><span class="o">-</span><span class="n">ci</span>
-
-  <span class="c1"># Require at least one approving review on a pull request, before merging. Set to null to disable.</span>
-  <span class="n">required_pull_request_reviews</span><span class="p">:</span>
-    <span class="c1"># Set to true if you want to automatically dismiss approving reviews when</span>
-    <span class="c1"># someone pushes a new commit.</span>
-    <span class="n">dismiss_stale_reviews</span><span class="p">:</span> <span class="n">true</span>
-    <span class="c1"># Blocks merging pull requests until code owners review them.</span>
-    <span class="n">require_code_owner_reviews</span><span class="p">:</span> <span class="n">false</span>
-    <span class="c1"># Specify the number of reviewers required to approve pull requests. Use a</span>
-    <span class="c1"># number between 1 and 6.</span>
-    <span class="n">required_approving_review_count</span><span class="p">:</span> <span class="mi">1</span>
-    <span class="c1"># Specify which users and teams can dismiss pull request reviews (not yet supported)</span>
-    <span class="c1"># dismissal_restrictions: null</span>
-    <span class="c1"># to enable us a dict like:</span>
-    <span class="c1">#  users: [&quot;login&quot;, ... ]</span>
-    <span class="c1">#  teams: [&quot;team slug&quot;, ... ]</span>
-
-  <span class="c1"># Restrict who can push to this branch. Team and user restrictions are only</span>
-  <span class="c1"># available for organization-owned repositories. Set to null to disable.</span>
-  <span class="n">restrictions</span><span class="p">:</span> <span class="n">null</span>
-  <span class="c1"># to enable us a dict like:</span>
-  <span class="c1">#  users: [&quot;login&quot;, ... ]</span>
-  <span class="c1">#  teams: [&quot;team slug&quot;, ... ]</span>
-
-  <span class="c1"># Enforce all configured restrictions for administrators. Set to true to</span>
-  <span class="c1"># enforce required status checks for repository administrators. Set to null</span>
-  <span class="c1"># to disable.</span>
-  <span class="n">enforce_admins</span><span class="p">:</span> <span class="n">null</span>
-
-<span class="c1">### Coming soon options ###</span>
-
-<span class="c1"># Disable mergify for pull request that have this label</span>
-<span class="n">disabling_label</span><span class="p">:</span> <span class="n">no</span><span class="o">-</span><span class="n">mergify</span>
-
-<span class="c1"># # Automatically propose a backport of pull request have this label to other branches</span>
-<span class="c1"># # when this pull request is merged</span>
-<span class="c1"># automated_backport_labels:</span>
-<span class="c1">#    bp-3.1:</span>
-<span class="c1">#      from: master</span>
-<span class="c1">#      to: stable/3.1</span>
-</pre></div>
-</div>
 </div>
 </div>
 
