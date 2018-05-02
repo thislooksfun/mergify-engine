@@ -63,9 +63,9 @@
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
-    
     <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
+    
+    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
     
 </ul>
 <div class="relations">
@@ -104,7 +104,8 @@
 </div>
 <div class="section" id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
-<p>In the root directory of each enabled repository, create a <cite>.mergify.yml</cite> file with the minimal content to apply the defaults rules:</p>
+<p>In the root directory of each enabled repository, create a <code class="docutils literal notranslate"><span class="pre">.mergify.yml</span></code>
+file with the minimal content to apply the defaults rules:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> myrepository
 $ <span class="nb">echo</span> <span class="s2">&quot;rules:&quot;</span> &gt; .mergify.yml
 $ git add .mergify.yml
@@ -112,7 +113,7 @@ $ git commit -m <span class="s2">&quot;Enable mergify.io&quot;</span>
 $ git push
 </pre></div>
 </div>
-<p>A more realistic example of the <cite>.mergify.yml</cite> file would look like :</p>
+<p>A more realistic example of the <code class="docutils literal notranslate"><span class="pre">.mergify.yml</span></code> file would look like :</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
@@ -123,10 +124,13 @@ $ git push
         <span class="l l-Scalar l-Scalar-Plain">required_approving_review_count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
 </pre></div>
 </div>
-<p>The key <cite>default</cite> stores the default merging rules to use on all branches. The <cite>required_status_checks</cite> lists all checks that must pass before merging a pull request.
-The <cite>required_pull_request_reviews</cite> defines how many reviewer of the repository should approve the pull request before it gets merged.</p>
+<p>The key <code class="docutils literal notranslate"><span class="pre">default</span></code> stores the default merging rules to use on all branches.
+The <code class="docutils literal notranslate"><span class="pre">required_status_checks</span></code> lists all checks that must pass before merging a
+pull request. The <code class="docutils literal notranslate"><span class="pre">required_pull_request_reviews</span></code> defines how many reviewer
+of the repository should approve the pull request before it gets merged.</p>
 <p>You can read the <a class="reference internal" href="configuration.html"><span class="doc">full list of configuration option</span></a>.</p>
-<p>You can define a per branch rule using the <cite>branches</cite> settings. To match multiple branches at once, you can use a regular expression:</p>
+<p>You can define a per branch rule using the <code class="docutils literal notranslate"><span class="pre">branches</span></code> settings. To match
+multiple branches at once, you can use a regular expression:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
