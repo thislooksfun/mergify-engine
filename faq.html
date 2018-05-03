@@ -51,7 +51,8 @@
 <li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration file</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">FAQ</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#where-is-the-mergify-policy-file-located">Where is the mergify policy file located?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#where-is-the-mergify-configuration-file-located">Where is the mergify configuration file located?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-the-branch-picked-by-mergify-to-read-the-configuration">What is the branch picked by mergify to read the configuration?</a></li>
 </ul>
 </li>
 </ul>
@@ -93,9 +94,14 @@
             
   <div class="section" id="faq">
 <h1>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="where-is-the-mergify-policy-file-located">
-<h2>Where is the mergify policy file located?<a class="headerlink" href="#where-is-the-mergify-policy-file-located" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="where-is-the-mergify-configuration-file-located">
+<h2>Where is the mergify configuration file located?<a class="headerlink" href="#where-is-the-mergify-configuration-file-located" title="Permalink to this headline">¶</a></h2>
 <p>In the root directory of the repository with the name <code class="docutils literal notranslate"><span class="pre">.mergify.yml</span></code>.</p>
+</div>
+<div class="section" id="what-is-the-branch-picked-by-mergify-to-read-the-configuration">
+<h2>What is the branch picked by mergify to read the configuration?<a class="headerlink" href="#what-is-the-branch-picked-by-mergify-to-read-the-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Mergify uses the default repository branch configured on GitHub, usually
+<code class="docutils literal notranslate"><span class="pre">master</span></code>.</p>
 </div>
 </div>
 
