@@ -1,0 +1,186 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Strict Workflow &#8212; Mergify.io  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Configuration file" href="configuration.html" />
+    <link rel="prev" title="Getting Started" href="getting-started.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/logo.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">Mergify.io</h1>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">Stop merging your pull requests manually.</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Strict Workflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#understanding-the-problem">Understanding the Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-strict-workflow-solution">The Strict Workflow Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#enabling-the-strict-workflow">Enabling the Strict Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
+    
+    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="getting-started.html" title="previous chapter">Getting Started</a></li>
+      <li>Next: <a href="configuration.html" title="next chapter">Configuration file</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="strict-workflow">
+<h1>Strict Workflow<a class="headerlink" href="#strict-workflow" title="Permalink to this headline">¶</a></h1>
+<p>The <em>strict</em> workflow is a workflow that prevents merging broken pull requests.
+That situation can arise when outdated pull requests are being merged in their
+base branch.</p>
+<div class="section" id="understanding-the-problem">
+<h2>Understanding the Problem<a class="headerlink" href="#understanding-the-problem" title="Permalink to this headline">¶</a></h2>
+<p>To understand what the problem is, imagining the following situation: the base
+branch (e.g., <code class="docutils literal notranslate"><span class="pre">master</span></code>) branch have its continuous integration testing passing
+correctly. A pull request is created, and the pull requests also pass. The
+state of the repository can be represented like this:</p>
+<img alt="Pull request is open" src="_images/master-pr-ci-pass.png" />
+<p>While the pull request stays open, another commit is pushed to <code class="docutils literal notranslate"><span class="pre">master</span></code>. That
+can be a local commit or a merge commit from another pull request; who knows.
+The tests are run against <code class="docutils literal notranslate"><span class="pre">master</span></code> and they pass. The state of the continuous
+integration system is now reflected as this:</p>
+<img alt="Base branch adds a new commit" src="_images/new-master-pr-ci-pass.png" />
+<p>The pull request is still marked as valid by the continuous integration system
+since it did not change. Therefore, the pull request is considered as
+_mergeable_: the merge button is green.</p>
+<p>If you click that merge button, this is what might happens:</p>
+<img alt="Base branch is broken" src="_images/merge-ci-fail.png" />
+<p>As a new merge commit is created to merge the pull request, it is possible that
+the continuous integration testing will fail. Indeed: a new test might have
+been added in master while the pull request was open, and that pull request may
+not have the correct code to pass this new test.</p>
+<p>By pressing the merge button, you just broke your continuous integration
+system, and probably your software. Good work.</p>
+</div>
+<div class="section" id="the-strict-workflow-solution">
+<h2>The Strict Workflow Solution<a class="headerlink" href="#the-strict-workflow-solution" title="Permalink to this headline">¶</a></h2>
+<p>The <em>strict</em> workflow solves that issue by rebasing any pull request that is
+not up-to-date with its base branch before being merged. That forces the
+continuous integration system to test again the pull request with the new code.</p>
+<p>In the previous example, the continuous integration system would have marked the
+pull request as failing the test, removing it from the mergeable candidate.</p>
+<img alt="Rebase make CI fails" src="_images/merge-ci-fail.png" />
+<p>When the <em>strict</em> workflow is enabled, Mergify takes in charge the rebase of
+any pull request that is not up-to-date with its base branch. If multiple pull
+requests are mergeable, they are scheduled to be merged sequentially, and they
+will be rebased on top of each other.</p>
+<p>If any conflict occurs, the pull request will be marked as
+conflicting and no merge will happen until the solution is resolved by a nice
+human.</p>
+</div>
+<div class="section" id="enabling-the-strict-workflow">
+<h2>Enabling the Strict Workflow<a class="headerlink" href="#enabling-the-strict-workflow" title="Permalink to this headline">¶</a></h2>
+<p>To enable the <em>strict</em> workflow, you need to set the value of <code class="docutils literal notranslate"><span class="pre">strict</span></code> to
+<code class="docutils literal notranslate"><span class="pre">true</span></code> in the <a class="reference internal" href="configuration.html#required-status-checks"><span class="std std-ref">Required Status Checks</span></a> list.</p>
+<p>To enable it on all your branches, you can write a <code class="docutils literal notranslate"><span class="pre">mergify.yml</span></code> like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">required_status_checks</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">strict</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+<p>Of course, it makes even more sense to enable it with a continuous integration
+system required to pass. If you use <cite>Travis CI &lt;http://travis-ci.org&gt;</cite>, your
+configuration would look like:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">required_status_checks</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">strict</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+        <span class="l l-Scalar l-Scalar-Plain">contexts</span><span class="p p-Indicator">:</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">continuous-integration/travis-ci</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2018, Mergify.io.
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
