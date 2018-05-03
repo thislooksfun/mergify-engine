@@ -52,7 +52,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#mergify-io-is-now-ready-what-will-happen-next">Mergify.io is now ready, what will happen next?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mergify-is-now-ready-what-will-happen-next">Mergify is now ready, what will happen next?</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration file</a></li>
@@ -99,13 +99,20 @@
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p>In order to work, Mergify needs access to your account and to be enabled. To do so, start by logging in using your GitHub account at <a class="reference external" href="https://mergify.io/dashboard">https://mergify.io/dashboard</a>.</p>
-<p>Once this is done, you need to enable the Mergify GitHub Application on the repositories you want. Go to <a class="reference external" href="https://github.com/apps/mergify/installations/new">https://github.com/apps/mergify/installations/new</a> and enroll repositories where you want Mergify to be enabled.</p>
+<p>In order to work, Mergify needs access to your account and to be enabled. To do
+so, start by logging in using your GitHub account at
+<a class="reference external" href="https://mergify.io/dashboard">https://mergify.io/dashboard</a>. On first login, you will be asked to give
+some permissions on your behalf for Mergify to work.</p>
+<p>Once this is done, you need to enable the Mergify GitHub Application on the
+repositories you want. Go to <a class="reference external" href="https://github.com/apps/mergify/installations/new">https://github.com/apps/mergify/installations/new</a>
+and enroll repositories where you want Mergify to be enabled.</p>
 </div>
 <div class="section" id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
-<p>In the root directory of each enabled repository, create a <code class="docutils literal notranslate"><span class="pre">.mergify.yml</span></code>
-file with the minimal content to apply the defaults rules:</p>
+<p>In order for Mergify to apply your rules to your pull requests, you need to
+create a configuration file. The configuration file should be created in the
+root directory of each enabled repository and named <code class="docutils literal notranslate"><span class="pre">.mergify.yml</span></code>.</p>
+<p>Here’s how to create a file with a minimal content to enable Mergify:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> myrepository
 $ <span class="nb">echo</span> <span class="s2">&quot;rules:&quot;</span> &gt; .mergify.yml
 $ git add .mergify.yml
@@ -113,6 +120,9 @@ $ git commit -m <span class="s2">&quot;Enable mergify.io&quot;</span>
 $ git push
 </pre></div>
 </div>
+<p>Since this file does not contain any specific rules, the <a class="reference internal" href="configuration.html#default"><span class="std std-ref">default branch
+configuration</span></a> will be used. By default, Mergify will merge any pull
+request that has one approval review.</p>
 <p>A more realistic example of the <code class="docutils literal notranslate"><span class="pre">.mergify.yml</span></code> file would look like :</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
@@ -128,7 +138,8 @@ $ git push
 The <code class="docutils literal notranslate"><span class="pre">required_status_checks</span></code> lists all checks that must pass before merging a
 pull request. The <code class="docutils literal notranslate"><span class="pre">required_pull_request_reviews</span></code> defines how many reviewer
 of the repository should approve the pull request before it gets merged.</p>
-<p>You can read the <a class="reference internal" href="configuration.html"><span class="doc">full list of configuration option</span></a>.</p>
+<p>In this case, two reviewers must approve the pull request and the Travis CI
+must pass before Mergify merges the pull request.</p>
 <p>You can define a per branch rule using the <code class="docutils literal notranslate"><span class="pre">branches</span></code> settings. To match
 multiple branches at once, you can use a regular expression:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
@@ -146,17 +157,28 @@ multiple branches at once, you can use a regular expression:</p>
           <span class="l l-Scalar l-Scalar-Plain">required_approving_review_count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
 </pre></div>
 </div>
+<p>In this example, pull requests sent to a branch whose name matches <code class="docutils literal notranslate"><span class="pre">stable/*</span></code>
+will only require one review approval and will still require Travis to pass.</p>
+<p>You can read the <a class="reference internal" href="configuration.html"><span class="doc">full list of configuration option</span></a> for
+more information.</p>
 </div>
-<div class="section" id="mergify-io-is-now-ready-what-will-happen-next">
-<h2>Mergify.io is now ready, what will happen next?<a class="headerlink" href="#mergify-io-is-now-ready-what-will-happen-next" title="Permalink to this headline">¶</a></h2>
-<p>When a contributor sends a pull request to the repository, Mergify will post a status check about the state
-of the pull request according to the defined rules.</p>
+<div class="section" id="mergify-is-now-ready-what-will-happen-next">
+<h2>Mergify is now ready, what will happen next?<a class="headerlink" href="#mergify-is-now-ready-what-will-happen-next" title="Permalink to this headline">¶</a></h2>
+<p>When a contributor sends a pull request to the repository, Mergify will post a
+status check about the state of the pull request according to the defined
+rules.</p>
 <img alt="status check" src="_images/mergify-status-ko.png" />
-<p>When all criterias of the rules are satisfied, Mergify will merge the base branch into the pull request if the pull request is not up-to-date with the base branch. This is made to ensure that the pull request is tested one last time while being up-to-date with the base branch.</p>
-<p>Once the required services status are approved, Mergify will automatically merge the pull request.</p>
+<p>When all the criterias of the rules are satisfied, Mergify will merge the base
+branch into the pull request if the pull request is not up-to-date with the
+base branch. This is made to ensure that the pull request is tested one last
+time while being up-to-date with the base branch.</p>
+<p>Once the required services status are approved, Mergify will automatically
+merge the pull request:</p>
 <img alt="merge" src="_images/mergify-merge.png" />
-<p>You can follow the state of the Mergify merge queue at <a class="reference external" href="https://mergify.io/dashboard">https://mergify.io/dashboard</a></p>
-<p>Now, that Mergify.io is setup, you can go back on what matters for your project and let us babysit your pull requests!</p>
+<p>You can follow the state of the Mergify merge queues by connecting to <a class="reference external" href="https://mergify.io/dashboard">your
+dashboard</a></p>
+<p>Now, that Mergify. is setup, you can go back on what matters for your project
+and let us babysit your pull requests!</p>
 </div>
 </div>
 
