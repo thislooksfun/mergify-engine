@@ -64,9 +64,9 @@
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
-    
     <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
+    
+    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
     
 </ul>
 <div class="relations">
@@ -169,6 +169,13 @@ more information.</p>
 status check about the state of the pull request according to the defined
 rules.</p>
 <img alt="status check" src="_images/mergify-status-ko.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When a pull request changes the configuration of Mergify, the <code class="docutils literal notranslate"><span class="pre">mergify/pr</span></code>
+status is built with the current configuration (without the pull request
+change). To validate the Mergify configuration change an additional status is
+posted named <code class="docutils literal notranslate"><span class="pre">mergify/future-config-checker</span></code>.</p>
+</div>
 <p>When all the criterias of the rules are satisfied, Mergify will merge the base
 branch into the pull request if the pull request is not up-to-date with the
 base branch. This is made to ensure that the pull request is tested one last
