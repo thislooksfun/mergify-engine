@@ -9,7 +9,7 @@
     <title>Configuration file &#8212; Mergify.io  documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
@@ -53,6 +53,7 @@
 <li class="toctree-l1"><a class="reference internal" href="strict-workflow.html">Strict Workflow</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration file</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#rule">Rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#merge-strategy">Merge Strategy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#protection">Protection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#required-status-checks">Required Status Checks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#required-reviews">Required Reviews</a></li>
@@ -155,11 +156,47 @@ names and the values are of type <a class="reference internal" href="#rule"><spa
 will disable Mergify if it is applied to a pull request. Default is
 <code class="docutils literal notranslate"><span class="pre">no-mergify</span></code>.</td>
 </tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">merge_strategy</span></code></td>
+<td><a class="reference internal" href="#merge-strategy"><span class="std std-ref">Merge Strategy</span></a></td>
+<td>The method to use to merge pull requests.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="merge-strategy">
+<span id="id2"></span><h2>Merge Strategy<a class="headerlink" href="#merge-strategy" title="Permalink to this headline">¶</a></h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">Merge</span> <span class="pre">Strategy</span></code> defines the method to merge pull requests. It is a
+dictionary with the following optional keys:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key name</th>
+<th class="head">Value type</th>
+<th class="head">Value description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">method</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">string</span></code></td>
+<td>Merge method to use. Possible values are <code class="docutils literal notranslate"><span class="pre">merge</span></code>, <code class="docutils literal notranslate"><span class="pre">squash</span></code> or
+<code class="docutils literal notranslate"><span class="pre">rebase</span></code>. Default is <code class="docutils literal notranslate"><span class="pre">rebase</span></code>.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">rebase_fallback</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">string</span></code></td>
+<td>If <code class="docutils literal notranslate"><span class="pre">method</span></code> is set to <code class="docutils literal notranslate"><span class="pre">rebase</span></code>, but the pull request cannot be
+rebased, the method defined in <code class="docutils literal notranslate"><span class="pre">rebase_fallback</span></code> will be used instead.
+Possible values are <code class="docutils literal notranslate"><span class="pre">merge</span></code>, <code class="docutils literal notranslate"><span class="pre">squash</span></code>, <code class="docutils literal notranslate"><span class="pre">none</span></code>. Default is
+<code class="docutils literal notranslate"><span class="pre">merge</span></code>.</td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="protection">
-<span id="id2"></span><h2>Protection<a class="headerlink" href="#protection" title="Permalink to this headline">¶</a></h2>
+<span id="id3"></span><h2>Protection<a class="headerlink" href="#protection" title="Permalink to this headline">¶</a></h2>
 <p>A <code class="docutils literal notranslate"><span class="pre">Protection</span></code> defines the safeguards that are needed to merge pull requests
 in a branch. It is a dictionary with the following optional keys:</p>
 <table border="1" class="docutils">
@@ -200,7 +237,7 @@ to enforce required status checks for repository administrators. Set to
 </table>
 </div>
 <div class="section" id="required-status-checks">
-<span id="id3"></span><h2>Required Status Checks<a class="headerlink" href="#required-status-checks" title="Permalink to this headline">¶</a></h2>
+<span id="id4"></span><h2>Required Status Checks<a class="headerlink" href="#required-status-checks" title="Permalink to this headline">¶</a></h2>
 <p>A <code class="docutils literal notranslate"><span class="pre">Required</span> <span class="pre">Status</span> <span class="pre">Checks</span></code> defines which other services must report a valid
 status check before a pull request can be merged. It is a dictionary with the
 following optional keys:</p>
@@ -230,7 +267,7 @@ following optional keys:</p>
 </table>
 </div>
 <div class="section" id="required-reviews">
-<span id="id4"></span><h2>Required Reviews<a class="headerlink" href="#required-reviews" title="Permalink to this headline">¶</a></h2>
+<span id="id5"></span><h2>Required Reviews<a class="headerlink" href="#required-reviews" title="Permalink to this headline">¶</a></h2>
 <p>A <code class="docutils literal notranslate"><span class="pre">Required</span> <span class="pre">Reviews</span></code> defines what kind of <a class="reference external" href="https://help.github.com/articles/about-pull-request-reviews/">reviews</a> are needed for
 a pull request to be merged. It is a dictionary with the following optional
 keys:</p>
@@ -265,7 +302,7 @@ number between 1 and 6.</td>
 </table>
 </div>
 <div class="section" id="restriction">
-<span id="id5"></span><h2>Restriction<a class="headerlink" href="#restriction" title="Permalink to this headline">¶</a></h2>
+<span id="id6"></span><h2>Restriction<a class="headerlink" href="#restriction" title="Permalink to this headline">¶</a></h2>
 <p>A <code class="docutils literal notranslate"><span class="pre">Restriction</span></code> defines a list of user or team for whom a restriction
 applies. It is a dictionary with the following optional keys:</p>
 <table border="1" class="docutils">
@@ -305,6 +342,9 @@ applies. It is a dictionary with the following optional keys:</p>
   <span class="n">enforce_admins</span><span class="p">:</span> <span class="n">false</span>
 
 <span class="n">disabling_label</span><span class="p">:</span> <span class="n">no</span><span class="o">-</span><span class="n">mergify</span>
+<span class="n">merge_strategy</span><span class="p">:</span>
+  <span class="n">method</span><span class="p">:</span> <span class="n">rebase</span>
+  <span class="n">rebase_fallback</span><span class="p">:</span> <span class="n">merge</span>
 </pre></div>
 </div>
 </div>
