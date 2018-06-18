@@ -68,9 +68,9 @@
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
-    
     <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
+    
+    <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
     
 </ul>
 <div class="relations">
@@ -156,7 +156,16 @@ names and the values are of type <a class="reference internal" href="#rule"><spa
 will disable Mergify if it is applied to a pull request. Default is
 <code class="docutils literal notranslate"><span class="pre">no-mergify</span></code>.</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">merge_strategy</span></code></td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">disabling_files</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">array</span> <span class="pre">of</span> <span class="pre">string</span></code></td>
+<td>A list of files paths that disables Mergify if they are part of the pull
+request. Any file that changes the behavior of the continuous integration
+workflow should be listed. The default is <code class="docutils literal notranslate"><span class="pre">[.mergify.yml]</span></code>. Note that
+the engine always ignore pull requests that modify <code class="docutils literal notranslate"><span class="pre">.mergify.yml</span></code>
+anyway. Those pull requests will have to be merged manually, even if
+<cite>.mergify.yml</cite> is not listed in this setting.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">merge_strategy</span></code></td>
 <td><a class="reference internal" href="#merge-strategy"><span class="std std-ref">Merge Strategy</span></a></td>
 <td>The method to use to merge pull requests.</td>
 </tr>
@@ -342,6 +351,8 @@ applies. It is a dictionary with the following optional keys:</p>
   <span class="n">enforce_admins</span><span class="p">:</span> <span class="n">false</span>
 
 <span class="n">disabling_label</span><span class="p">:</span> <span class="n">no</span><span class="o">-</span><span class="n">mergify</span>
+<span class="n">disabling_files</span><span class="p">:</span>
+  <span class="o">-</span> <span class="o">.</span><span class="n">mergify</span><span class="o">.</span><span class="n">yml</span>
 <span class="n">merge_strategy</span><span class="p">:</span>
   <span class="n">method</span><span class="p">:</span> <span class="n">merge</span>
   <span class="n">rebase_fallback</span><span class="p">:</span> <span class="n">merge</span>
