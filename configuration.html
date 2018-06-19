@@ -68,9 +68,9 @@
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
-    
     <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
+    
+    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
     
 </ul>
 <div class="relations">
@@ -98,6 +98,8 @@
       </div>
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="configuration-file">
@@ -168,6 +170,14 @@ anyway. Those pull requests will have to be merged manually, even if
 <tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">merge_strategy</span></code></td>
 <td><a class="reference internal" href="#merge-strategy"><span class="std std-ref">Merge Strategy</span></a></td>
 <td>The method to use to merge pull requests.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">automated_backport_labels</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">dict</span></code></td>
+<td>A dictionary where keys are <a class="reference external" href="https://help.github.com/articles/about-labels/">labels</a> name and values are
+branch name. When a pull request is merged and labeled with one of the
+keys, a new pull request is created on the branch associated to the
+key. The new pull request have all commits cherry-picked from the
+original pull request.</td>
 </tr>
 </tbody>
 </table>
@@ -356,6 +366,7 @@ applies. It is a dictionary with the following optional keys:</p>
 <span class="n">merge_strategy</span><span class="p">:</span>
   <span class="n">method</span><span class="p">:</span> <span class="n">merge</span>
   <span class="n">rebase_fallback</span><span class="p">:</span> <span class="n">merge</span>
+<span class="n">automated_backport_labels</span><span class="p">:</span> <span class="n">null</span>
 </pre></div>
 </div>
 </div>
@@ -363,6 +374,7 @@ applies. It is a dictionary with the following optional keys:</p>
 
 
           </div>
+          
         </div>
       </div>
     <div class="clearer"></div>
