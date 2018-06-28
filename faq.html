@@ -54,6 +54,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">FAQ</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#where-is-the-mergify-configuration-file-located">Where is the mergify configuration file located?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-is-the-branch-picked-by-mergify-to-read-the-configuration">What is the branch picked by mergify to read the configuration?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-do-i-fix-the-pull-request-can-t-be-updated-with-latest-base-branch-changes-owner-doesn-t-allow-modification-error">How do I fix the <em>“Pull request can’t be updated with latest base branch changes, owner doesn’t allow modification”</em> error?</a></li>
 </ul>
 </li>
 </ul>
@@ -105,6 +106,18 @@
 <h2>What is the branch picked by mergify to read the configuration?<a class="headerlink" href="#what-is-the-branch-picked-by-mergify-to-read-the-configuration" title="Permalink to this headline">¶</a></h2>
 <p>Mergify uses the default repository branch configured on GitHub, usually
 <code class="docutils literal notranslate"><span class="pre">master</span></code>.</p>
+</div>
+<div class="section" id="how-do-i-fix-the-pull-request-can-t-be-updated-with-latest-base-branch-changes-owner-doesn-t-allow-modification-error">
+<h2>How do I fix the <em>“Pull request can’t be updated with latest base branch changes, owner doesn’t allow modification”</em> error?<a class="headerlink" href="#how-do-i-fix-the-pull-request-can-t-be-updated-with-latest-base-branch-changes-owner-doesn-t-allow-modification-error" title="Permalink to this headline">¶</a></h2>
+<p>When <a class="reference internal" href="strict-workflow.html"><span class="doc">Strict Workflow</span></a> is enabled, pull requests must be updated with the
+latest content from the target branch before being merged. To do that, Mergify
+needs the permission to update the source branch of the pull request.</p>
+<p>In certain cases, the pull request creator might not have authorized the
+repository owners to modify its source branch, which will block Mergify with
+this error. The solution is for the author of the pull request to either update
+manually its branch to the target branch (via a <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">merge</span></code> or a <code class="docutils literal notranslate"><span class="pre">git</span>
+<span class="pre">rebase</span></code>) or to give permission for Mergify to do it as described in <a class="reference external" href="https://help.github.com/articles/allowing-changes-to-a-pull-request-branch-created-from-a-fork/">the
+GitHub documentation</a>.</p>
 </div>
 </div>
 
