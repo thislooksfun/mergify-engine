@@ -129,19 +129,19 @@ system, and probably your software. Good work.</p>
 </div>
 <div class="section" id="the-strict-workflow-solution">
 <h2>The Strict Workflow Solution<a class="headerlink" href="#the-strict-workflow-solution" title="Permalink to this headline">¶</a></h2>
-<p>The <em>strict</em> workflow solves that issue by rebasing any pull request that is
+<p>The <em>strict</em> workflow solves that issue by updating any pull request that is
 not up-to-date with its base branch before being merged. That forces the
 continuous integration system to test again the pull request with the new code.</p>
 <p>In the previous example, the continuous integration system would have marked the
 pull request as failing the test, removing it from the mergeable candidate.</p>
 <img alt="Rebase make CI fails" src="_images/merge-ci-fail.png" />
-<p>When the <em>strict</em> workflow is enabled, Mergify takes care of rebasing
-any pull request that is not up-to-date with its base branch. If multiple pull
-requests are mergeable, they are scheduled to be merged sequentially, and they
-will be rebased on top of each other.</p>
-<p>If any conflict occurs, the pull request will be marked as
-conflicting and no merge will happen until the solution is resolved by a nice
-human.</p>
+<p>When the <em>strict</em> workflow is enabled, Mergify takes care of merging the target
+branch in any pull request that is not up-to-date with its target branch. If
+multiple pull requests are mergeable, they are scheduled to be merged
+sequentially, and they will be updated on top of each other.</p>
+<p>The pull request branch update is only done when the pull request is ready to
+be merged by the engine, e.g., when the status checks are OK and the number of
+postive reviews are enough.</p>
 </div>
 <div class="section" id="enabling-the-strict-workflow">
 <h2>Enabling the Strict Workflow<a class="headerlink" href="#enabling-the-strict-workflow" title="Permalink to this headline">¶</a></h2>
