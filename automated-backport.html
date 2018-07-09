@@ -1,0 +1,157 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Automated Backport &#8212; Mergify.io  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Configuration file" href="configuration.html" />
+    <link rel="prev" title="Strict Workflow" href="strict-workflow.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/logo.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">Mergify.io</h1>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">Stop merging your pull requests manually.</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strict-workflow.html">Strict Workflow</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Automated Backport</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-it-works">How It Works</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
+    
+    <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="strict-workflow.html" title="previous chapter">Strict Workflow</a></li>
+      <li>Next: <a href="configuration.html" title="next chapter">Configuration file</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="automated-backport">
+<h1>Automated Backport<a class="headerlink" href="#automated-backport" title="Permalink to this headline">¶</a></h1>
+<p>It is common for software to have (some of) their major versions maintained
+over an extended period. Developers usually create stable branches that are
+maintained for a while by cherry-picking patches from the development branch.</p>
+<p>This process is called <em>backporting</em> as it implies that bug fixes merged into
+the development branch are ported back to the stable branch. The stable branch
+can then be used to release a new minor version of the software, fixing some of
+its bugs.</p>
+<p>As this process of backporting patches can be tedious, Mergify automates this
+mechanism to save developers’ time and ease their duty.</p>
+<div class="section" id="how-it-works">
+<h2>How It Works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
+<p>Automated backport can be enabled by configuring the
+<code class="docutils literal notranslate"><span class="pre">automated_backport_labels</span></code> option in your <code class="docutils literal notranslate"><span class="pre">.mergify.yml</span></code>. This option
+consists of a dictionary where the keys are <a class="reference external" href="https://help.github.com/articles/about-labels/">labels</a> name and values are branch
+names.</p>
+<p>When a pull request is merged and labeled with one of the keys, a new pull
+request is created on the branch associated to the key. The new pull request
+has all commits cherry-picked from the original pull request.</p>
+<p>For example, the following configuration creates new pull requests to backport
+merged pull requests. Pull requests labeled with <code class="docutils literal notranslate"><span class="pre">backport-to-stable-3.0</span></code>
+that are merged into any branch are backported to <code class="docutils literal notranslate"><span class="pre">stable-3.0</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rules</span><span class="p">:</span>
+  <span class="n">default</span><span class="p">:</span>
+    <span class="n">automated_backport_labels</span><span class="p">:</span>
+      <span class="n">backport</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">stable</span><span class="o">-</span><span class="mf">3.0</span><span class="p">:</span> <span class="n">stable</span><span class="o">-</span><span class="mf">3.0</span>
+</pre></div>
+</div>
+<p>When the pull request is created and labeled with <code class="docutils literal notranslate"><span class="pre">backport-to-stable-3.0</span></code>,
+Mergify waits for the pull request to be merged.</p>
+<img alt="Pull request is open" src="_images/backport-open.png" />
+<p>As soon as the labeled pull request is merged, Mergify creates a new pull
+request targetting the <code class="docutils literal notranslate"><span class="pre">stable-3.0</span></code> branch that carries over the commits
+included in the original labeled pull request.</p>
+<img alt="Pull request is closed, backport is created" src="_images/backport-done.png" />
+<p>This new pull request can be merged following your usual criteria for its
+targetting branch.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2018, Mergify.io.
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
