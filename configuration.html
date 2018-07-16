@@ -239,7 +239,7 @@ in a branch. It is a dictionary with the following optional keys:</p>
 <tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">required_pull_request_reviews</span></code></td>
 <td><a class="reference internal" href="#required-reviews"><span class="std std-ref">Required Reviews</span></a></td>
 <td>The required criterias on code reviews for the pull request to be
-merged.</td>
+merged. Set to <code class="docutils literal notranslate"><span class="pre">null</span></code> to disable.</td>
 </tr>
 <tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">restrictions</span></code></td>
 <td><a class="reference internal" href="#restriction"><span class="std std-ref">Restriction</span></a></td>
@@ -316,7 +316,8 @@ when someone pushes a new commit.</td>
 <tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">required_approving_review_count</span></code></td>
 <td><code class="docutils literal notranslate"><span class="pre">integer</span></code></td>
 <td>Specify the number of reviewers required to approve pull requests. Use a
-number between 1 and 6.</td>
+number between 1 and 6. If you don’t need any reviewer, set
+<code class="docutils literal notranslate"><span class="pre">required_pull_request_reviews</span></code> to <code class="docutils literal notranslate"><span class="pre">null</span></code> instead.</td>
 </tr>
 </tbody>
 </table>

@@ -163,6 +163,24 @@ multiple branches at once, you can use a regular expression:</p>
 </div>
 <p>In this example, pull requests sent to a branch whose name matches <code class="docutils literal notranslate"><span class="pre">stable/*</span></code>
 will only require one review approval and will still require Travis to pass.</p>
+<p>You can automatically merge a pull request as soon as all the required status
+checks pass:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">required_status_checks</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">contexts</span><span class="p p-Indicator">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">continuous-integration/travis-ci</span>
+    <span class="l l-Scalar l-Scalar-Plain">required_pull_request_reviews</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">required_approving_review_count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+  <span class="l l-Scalar l-Scalar-Plain">branches</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">auto-deployment</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">required_pull_request_reviews</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+</pre></div>
+</div>
+<p>With that configuration, pull requests sent to the branch auto-deployment
+require no approvals, while still requiring Travis continuous integration to
+succeed.</p>
 <p>You can read the <a class="reference internal" href="configuration.html"><span class="doc">full list of configuration option</span></a> for
 more information.</p>
 </div>
