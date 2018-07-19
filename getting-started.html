@@ -65,9 +65,9 @@
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
-    
     <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
+    
+    <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
     
 </ul>
 <div class="relations">
@@ -181,6 +181,21 @@ checks pass:</p>
 <p>With that configuration, pull requests sent to the branch auto-deployment
 require no approvals, while still requiring Travis continuous integration to
 succeed.</p>
+<p>You can also disable Mergify on a particular branch:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">required_status_checks</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">contexts</span><span class="p p-Indicator">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">continuous-integration/travis-ci</span>
+    <span class="l l-Scalar l-Scalar-Plain">required_pull_request_reviews</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">required_approving_review_count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+  <span class="l l-Scalar l-Scalar-Plain">branches</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">^features/.*</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+</pre></div>
+</div>
+<p>Here all branches starting by <code class="docutils literal notranslate"><span class="pre">features/</span></code> will not have Mergify enabled. All
+pull requests opened against thes branches will not be handled by Mergify, and
+GitHub branch protection will be disabled on them.</p>
 <p>You can read the <a class="reference internal" href="configuration.html"><span class="doc">full list of configuration option</span></a> for
 more information.</p>
 </div>
