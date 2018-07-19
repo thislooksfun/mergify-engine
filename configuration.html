@@ -17,7 +17,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="FAQ" href="faq.html" />
-    <link rel="prev" title="Automated Backport" href="automated-backport.html" />
+    <link rel="prev" title="Disabling Mergify" href="disabling.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -52,6 +52,7 @@
 <li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="strict-workflow.html">Strict Workflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automated-backport.html">Automated Backport</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disabling.html">Disabling Mergify</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration file</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#rule">Rule</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#merge-strategy">Merge Strategy</a></li>
@@ -69,16 +70,16 @@
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
-    
     <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
+    
+    <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
     
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="automated-backport.html" title="previous chapter">Automated Backport</a></li>
+      <li>Previous: <a href="disabling.html" title="previous chapter">Disabling Mergify</a></li>
       <li>Next: <a href="faq.html" title="next chapter">FAQ</a></li>
   </ul></li>
 </ul>
@@ -159,7 +160,13 @@ names and the values are of type <a class="reference internal" href="#rule"><spa
 will disable Mergify if it is applied to a pull request. Default is
 <code class="docutils literal notranslate"><span class="pre">no-mergify</span></code>.</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">disabling_files</span></code></td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">enabling_label</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">string</span></code></td>
+<td>A <a class="reference external" href="https://help.github.com/articles/about-labels/">label</a> name that
+will enable Mergify only if it is applied to a pull request. Default is
+<code class="docutils literal notranslate"><span class="pre">null</span></code>.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">disabling_files</span></code></td>
 <td><code class="docutils literal notranslate"><span class="pre">array</span> <span class="pre">of</span> <span class="pre">string</span></code></td>
 <td>A list of files paths that disables Mergify if they are part of the pull
 request. Any file that changes the behavior of the continuous integration
@@ -168,11 +175,11 @@ the engine always ignore pull requests that modify <code class="docutils literal
 anyway. Those pull requests will have to be merged manually, even if
 <cite>.mergify.yml</cite> is not listed in this setting.</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">merge_strategy</span></code></td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">merge_strategy</span></code></td>
 <td><a class="reference internal" href="#merge-strategy"><span class="std std-ref">Merge Strategy</span></a></td>
 <td>The method to use to merge pull requests.</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">automated_backport_labels</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">automated_backport_labels</span></code></td>
 <td><code class="docutils literal notranslate"><span class="pre">dict</span></code></td>
 <td>A dictionary where keys are <a class="reference external" href="https://help.github.com/articles/about-labels/">labels</a> name and values are
 branch name. When a pull request is merged and labeled with one of the
@@ -184,7 +191,7 @@ original pull request.</td>
 </table>
 </div>
 <div class="section" id="merge-strategy">
-<span id="id2"></span><h2>Merge Strategy<a class="headerlink" href="#merge-strategy" title="Permalink to this headline">¶</a></h2>
+<span id="id3"></span><h2>Merge Strategy<a class="headerlink" href="#merge-strategy" title="Permalink to this headline">¶</a></h2>
 <p>A <code class="docutils literal notranslate"><span class="pre">Merge</span> <span class="pre">Strategy</span></code> defines the method to merge pull requests. It is a
 dictionary with the following optional keys:</p>
 <table border="1" class="docutils">
@@ -216,7 +223,7 @@ Possible values are <code class="docutils literal notranslate"><span class="pre"
 </table>
 </div>
 <div class="section" id="protection">
-<span id="id3"></span><h2>Protection<a class="headerlink" href="#protection" title="Permalink to this headline">¶</a></h2>
+<span id="id4"></span><h2>Protection<a class="headerlink" href="#protection" title="Permalink to this headline">¶</a></h2>
 <p>A <code class="docutils literal notranslate"><span class="pre">Protection</span></code> defines the safeguards that are needed to merge pull requests
 in a branch. It is a dictionary with the following optional keys:</p>
 <table border="1" class="docutils">
@@ -257,7 +264,7 @@ to enforce required status checks for repository administrators. Set to
 </table>
 </div>
 <div class="section" id="required-status-checks">
-<span id="id4"></span><h2>Required Status Checks<a class="headerlink" href="#required-status-checks" title="Permalink to this headline">¶</a></h2>
+<span id="id5"></span><h2>Required Status Checks<a class="headerlink" href="#required-status-checks" title="Permalink to this headline">¶</a></h2>
 <p>A <code class="docutils literal notranslate"><span class="pre">Required</span> <span class="pre">Status</span> <span class="pre">Checks</span></code> defines which other services must report a valid
 status check before a pull request can be merged. It is a dictionary with the
 following optional keys:</p>
@@ -287,7 +294,7 @@ following optional keys:</p>
 </table>
 </div>
 <div class="section" id="required-reviews">
-<span id="id5"></span><h2>Required Reviews<a class="headerlink" href="#required-reviews" title="Permalink to this headline">¶</a></h2>
+<span id="id6"></span><h2>Required Reviews<a class="headerlink" href="#required-reviews" title="Permalink to this headline">¶</a></h2>
 <p>A <code class="docutils literal notranslate"><span class="pre">Required</span> <span class="pre">Reviews</span></code> defines what kind of <a class="reference external" href="https://help.github.com/articles/about-pull-request-reviews/">reviews</a> are needed for
 a pull request to be merged. It is a dictionary with the following optional
 keys:</p>
@@ -323,7 +330,7 @@ number between 1 and 6. If you don’t need any reviewer, set
 </table>
 </div>
 <div class="section" id="restriction">
-<span id="id6"></span><h2>Restriction<a class="headerlink" href="#restriction" title="Permalink to this headline">¶</a></h2>
+<span id="id7"></span><h2>Restriction<a class="headerlink" href="#restriction" title="Permalink to this headline">¶</a></h2>
 <p>A <code class="docutils literal notranslate"><span class="pre">Restriction</span></code> defines a list of user or team for whom a restriction
 applies. It is a dictionary with the following optional keys:</p>
 <table border="1" class="docutils">
@@ -362,6 +369,7 @@ applies. It is a dictionary with the following optional keys:</p>
   <span class="n">restrictions</span><span class="p">:</span> <span class="n">null</span>
   <span class="n">enforce_admins</span><span class="p">:</span> <span class="n">false</span>
 
+<span class="n">enabling_label</span><span class="p">:</span> <span class="n">null</span>
 <span class="n">disabling_label</span><span class="p">:</span> <span class="n">no</span><span class="o">-</span><span class="n">mergify</span>
 <span class="n">disabling_files</span><span class="p">:</span>
   <span class="o">-</span> <span class="o">.</span><span class="n">mergify</span><span class="o">.</span><span class="n">yml</span>
