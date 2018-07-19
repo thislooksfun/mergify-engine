@@ -70,9 +70,9 @@
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
-    
     <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
+    
+    <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
     
 </ul>
 <div class="relations">
@@ -125,13 +125,13 @@ dict with the following optional keys:</p>
 <tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">default</span></code></td>
 <td><a class="reference internal" href="#rule"><span class="std std-ref">Rule</span></a></td>
 <td>The rules to be applied by Mergify by default. See <a class="reference internal" href="#rule"><span class="std std-ref">Rule</span></a> for the
-rule format.</td>
+rule format. Or <code class="docutils literal notranslate"><span class="pre">null</span></code> to disable Mergify by default.</td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">branches</span></code></td>
 <td><code class="docutils literal notranslate"><span class="pre">dict</span></code></td>
 <td>A dictionary where keys are string or regular expression (if
 starting by <code class="docutils literal notranslate"><span class="pre">^</span></code>) to match against branch names and the values are of
-type <a class="reference internal" href="#rule"><span class="std std-ref">Rule</span></a>.</td>
+type <a class="reference internal" href="#rule"><span class="std std-ref">Rule</span></a> or <code class="docutils literal notranslate"><span class="pre">null</span></code> to disable Mergify on this branch.</td>
 </tr>
 </tbody>
 </table>
