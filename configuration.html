@@ -70,9 +70,9 @@
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
-    
     <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
+    
+    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
     
 </ul>
 <div class="relations">
@@ -129,8 +129,9 @@ rule format.</td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">branches</span></code></td>
 <td><code class="docutils literal notranslate"><span class="pre">dict</span></code></td>
-<td>A dictionary where keys are regular expression to match against branch
-names and the values are of type <a class="reference internal" href="#rule"><span class="std std-ref">Rule</span></a>.</td>
+<td>A dictionary where keys are string or regular expression (if
+starting by <code class="docutils literal notranslate"><span class="pre">^</span></code>) to match against branch names and the values are of
+type <a class="reference internal" href="#rule"><span class="std std-ref">Rule</span></a>.</td>
 </tr>
 </tbody>
 </table>
