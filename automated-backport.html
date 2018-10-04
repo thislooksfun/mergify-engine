@@ -118,7 +118,8 @@ consists of a dictionary where the keys are <a class="reference external" href="
 names.</p>
 <p>When a pull request is merged and labeled with one of the keys, a new pull
 request is created on the branch associated to the key. The new pull request
-has all commits cherry-picked from the original pull request.</p>
+has all commits cherry-picked from the original pull request. Pull requests
+can also be labeled after they are merged.</p>
 <p>For example, the following configuration creates new pull requests to backport
 merged pull requests. Pull requests labeled with <code class="docutils literal notranslate"><span class="pre">backport-to-stable-3.0</span></code>
 that are merged into any branch are backported to <code class="docutils literal notranslate"><span class="pre">stable-3.0</span></code>:</p>
