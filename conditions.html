@@ -1,0 +1,357 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Conditions &#8212; Mergify.io  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Actions" href="actions.html" />
+    <link rel="prev" title="Configuration File Format" href="configuration.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/logo.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">Mergify.io</h1>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">Stop merging your pull requests manually.</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration File Format</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Conditions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#grammar">Grammar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#attribute-list">Attribute List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#operators-list">Operators List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="actions.html">Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strict-workflow.html">Strict Merge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Example Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v1/index.html">(Deprecated) Engine Version 1 Documentation</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
+    
+    <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="configuration.html" title="previous chapter">Configuration File Format</a></li>
+      <li>Next: <a href="actions.html" title="next chapter">Actions</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="conditions">
+<span id="id1"></span><h1>Conditions<a class="headerlink" href="#conditions" title="Permalink to this headline">¶</a></h1>
+<p>Conditions are used in pull request rules to check if a pull request matches a
+certain rule. If a pull request matches all of the listed conditions in a rule,
+the subsequent action listed in that rule will be applied. Conditions must be
+listed under the <code class="docutils literal notranslate"><span class="pre">conditions</span></code> section of the <code class="docutils literal notranslate"><span class="pre">pull_request_rules</span></code> entries —
+see <a class="reference internal" href="configuration.html#configuration-file-format"><span class="std std-ref">Configuration File Format</span></a>.</p>
+<div class="section" id="grammar">
+<h2>Grammar<a class="headerlink" href="#grammar" title="Permalink to this headline">¶</a></h2>
+<p>A condition is a string that has the following format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="s2">&quot;-&quot;</span> <span class="p">]</span> <span class="p">[</span> <span class="s2">&quot;#&quot;</span> <span class="p">]</span> <span class="o">&lt;</span><span class="n">attribute</span><span class="o">&gt;</span> <span class="p">[</span> <span class="o">&lt;</span><span class="n">operator</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>An <code class="docutils literal notranslate"><span class="pre">attribute</span></code> is a property of a pull request, such as its author, its title
+or its base branch. An <code class="docutils literal notranslate"><span class="pre">operator</span></code> is used to determine how the match between
+the pull request’s <code class="docutils literal notranslate"><span class="pre">attribute</span></code> and the defined <code class="docutils literal notranslate"><span class="pre">value</span></code> will occur.</p>
+<p>For example, the condition <code class="docutils literal notranslate"><span class="pre">author=jd</span></code> will be evaluated to true if the
+GitHub login of the author of the pull request is <code class="docutils literal notranslate"><span class="pre">jd</span></code>. The condition
+<code class="docutils literal notranslate"><span class="pre">base~=^stable/</span></code> will match any pull request whose base branch matches the
+regular expression <code class="docutils literal notranslate"><span class="pre">^stable/</span></code>.</p>
+<p>The special <code class="docutils literal notranslate"><span class="pre">#</span></code> prefix indicates to consider the length of the attribute
+rather than its content. For example, <code class="docutils literal notranslate"><span class="pre">approved-reviews-by=sileht</span></code> will match
+if the user <code class="docutils literal notranslate"><span class="pre">sileht</span></code> approved the pull request. However,
+<code class="docutils literal notranslate"><span class="pre">#approved-reviews-by&gt;=2</span></code> will match if at least 2 collaborators approved the
+pull request.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The <code class="docutils literal notranslate"><span class="pre">#</span></code> character is considered as the comment delimiter in YAML. <code class="docutils literal notranslate"><span class="pre">#</span></code> is
+also the length operator in Mergify’s conditions system, therefore don’t
+forget to use <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> around the condition.</p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">operator</span></code> and <code class="docutils literal notranslate"><span class="pre">value</span></code> are not mandatory if the <code class="docutils literal notranslate"><span class="pre">attribute</span></code> type is
+<code class="docutils literal notranslate"><span class="pre">Boolean</span></code>.</p>
+<p>The special <code class="docutils literal notranslate"><span class="pre">-</span></code> prefix is equivalent to the <cite>not</cite> operator.</p>
+</div>
+<div class="section" id="attribute-list">
+<h2>Attribute List<a class="headerlink" href="#attribute-list" title="Permalink to this headline">¶</a></h2>
+<p>Here’s the list of pull request attribute that rules can be matched against:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Attribute Name</th>
+<th class="head">Value type</th>
+<th class="head">Value description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">assignee</span></code></td>
+<td>array of string</td>
+<td>The list of GitHub user login that are assigned to the pull request.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">approved-reviews-by</span></code></td>
+<td>array of string</td>
+<td>The list of GitHub user or team login that approved the pull request.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">author</span></code></td>
+<td>string</td>
+<td>The GitHub login of the author of the pull request.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">base</span></code></td>
+<td>string</td>
+<td>The name of the branch the pull request should be pulled into.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">body</span></code></td>
+<td>string</td>
+<td>The contents of the pull request.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">changes-requested-reviews-by</span></code></td>
+<td>array of string</td>
+<td>The list of GitHub user or team login that have requested changes in a
+review for the pull request.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">closed</span></code></td>
+<td>Boolean</td>
+<td>Whether the pull request is closed.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">commented-reviews-by</span></code></td>
+<td>array of string</td>
+<td>The list of GitHub user or team login that have commented in a review
+for the pull request.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">dismissed-reviews-by</span></code></td>
+<td>array of string</td>
+<td>The list of GitHub user or team login that have their review dismissed
+in the pull request.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">files</span></code></td>
+<td>string</td>
+<td>The files that are modified, deleted or added by the pull request.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">head</span></code></td>
+<td>string</td>
+<td>The name of the branch where the pull request changes are implemented.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">label</span></code></td>
+<td>array of string</td>
+<td>The list of labels of the pull request.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">locked</span></code></td>
+<td>Boolean</td>
+<td>Whether the pull request is locked.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">merged</span></code></td>
+<td>Boolean</td>
+<td>Whether the pull request is merged.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">merged-by</span></code></td>
+<td>string</td>
+<td>The GitHub login of the user that merged the pull request.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">milestone</span></code></td>
+<td>string</td>
+<td>The milestone title associated to the pull request.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">review-requested</span></code></td>
+<td>array of string</td>
+<td>The list of GitHub user or team login that were requested to review the
+pull request. Team logins are prefixed with the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> character.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">status-success</span></code></td>
+<td>array of string</td>
+<td>The list of status checks that successfuly passed for the pull request.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">status-failure</span></code></td>
+<td>array of string</td>
+<td>The list of status checks that failed for the pull request.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">title</span></code></td>
+<td>string</td>
+<td>The title of the pull request.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="operators-list">
+<h2>Operators List<a class="headerlink" href="#operators-list" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="33%" />
+<col width="17%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operator Name</th>
+<th class="head">Symbol</th>
+<th class="head">Operator Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Equal</td>
+<td><code class="docutils literal notranslate"><span class="pre">=</span></code> or <code class="docutils literal notranslate"><span class="pre">:</span></code></td>
+<td>This operator checks for strict equality. If the target attribute type
+is an array, each element of the array is compared against the value.</td>
+</tr>
+<tr class="row-odd"><td>Not Equal</td>
+<td><code class="docutils literal notranslate"><span class="pre">!=</span></code> or <code class="docutils literal notranslate"><span class="pre">≠</span></code></td>
+<td>This operator checks for non equality. If the target attribute type
+is an array, each element of the array is compared against the value.</td>
+</tr>
+<tr class="row-even"><td>Match</td>
+<td><code class="docutils literal notranslate"><span class="pre">~=</span></code></td>
+<td>This operator checks for regular expression matching. If the target
+attribute type is an array, each element of the array is matched
+against the value.</td>
+</tr>
+<tr class="row-odd"><td>Greater Than or Equal</td>
+<td><code class="docutils literal notranslate"><span class="pre">&gt;=</span></code> or <code class="docutils literal notranslate"><span class="pre">≥</span></code></td>
+<td>This operator checks for the value to be greater than or equal to the
+provided value. It’s usually used to compare against the length of an
+array using the <code class="docutils literal notranslate"><span class="pre">#</span></code> prefix.</td>
+</tr>
+<tr class="row-even"><td>Greater Than</td>
+<td><code class="docutils literal notranslate"><span class="pre">&gt;</span></code></td>
+<td>This operator checks for the value to be greater than the provided
+value. It’s usually used to compare against the length of an array using
+the <code class="docutils literal notranslate"><span class="pre">#</span></code> prefix.</td>
+</tr>
+<tr class="row-odd"><td>Lesser Than or Equal</td>
+<td><code class="docutils literal notranslate"><span class="pre">&lt;=</span></code> or <code class="docutils literal notranslate"><span class="pre">≤</span></code></td>
+<td>This operator checks for the value to be lesser then or equal to the
+provided value. It’s usually used to compare against the length of an
+array using the <code class="docutils literal notranslate"><span class="pre">#</span></code> prefix.</td>
+</tr>
+<tr class="row-even"><td>Lesser Than</td>
+<td><code class="docutils literal notranslate"><span class="pre">&lt;</span></code></td>
+<td>This operator checks for the value to be lesser than the provided
+value. It’s usually used to compare against the length of an array using
+the <code class="docutils literal notranslate"><span class="pre">#</span></code> prefix.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="matching-pull-requests-passing-travis-and-being-approved">
+<h3>Matching Pull Requests Passing Travis and Being Approved<a class="headerlink" href="#matching-pull-requests-passing-travis-and-being-approved" title="Permalink to this headline">¶</a></h3>
+<p>Those conditions will match any pull request that has been approved by two
+reviewers and where Travis CI passes.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">conditions</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="s">&quot;#approved-reviews-by&gt;=2&quot;</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">status-success=continuous-integration/travis-ci/pr</span>
+</pre></div>
+</div>
+<p>If you want to ignore pull request that has a negative review, you can enhance
+this condition set like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">conditions</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="s">&quot;#approved-reviews-by&gt;=2&quot;</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">status-success=continuous-integration/travis-ci/pr</span>
+  <span class="p p-Indicator">-</span> <span class="s">&quot;#changes-requested-reviews-by=0&quot;</span>
+</pre></div>
+</div>
+<p>This can make sure that any pull request that has a change for request in a
+review is not matched.</p>
+</div>
+<div class="section" id="matching-merged-pull-requests">
+<h3>Matching Merged Pull Requests<a class="headerlink" href="#matching-merged-pull-requests" title="Permalink to this headline">¶</a></h3>
+<p>Matching merged pull requests is straight forward:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">conditions</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">merged</span>
+</pre></div>
+</div>
+<p>On the other hand, matching unmerged pull requests can be done with:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">conditions</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">-merged</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2018, Mergify.io.
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

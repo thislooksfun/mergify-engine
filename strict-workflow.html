@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Strict Workflow &#8212; Mergify.io  documentation</title>
+    <title>Strict Merge &#8212; Mergify.io  documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -17,8 +17,8 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Automated Backport" href="automated-backport.html" />
-    <link rel="prev" title="Getting Started" href="getting-started.html" />
+    <link rel="next" title="Example Rules" href="examples.html" />
+    <link rel="prev" title="Actions" href="actions.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -51,16 +51,18 @@
 <h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Strict Workflow</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conditions.html">Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="actions.html">Actions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Strict Merge</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#understanding-the-problem">Understanding the Problem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-strict-workflow-solution">The Strict Workflow Solution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#enabling-the-strict-workflow">Enabling the Strict Workflow</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automated-backport.html">Automated Backport</a></li>
-<li class="toctree-l1"><a class="reference internal" href="disabling.html">Disabling Mergify</a></li>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Example Rules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v1/index.html">(Deprecated) Engine Version 1 Documentation</a></li>
 </ul>
 
 
@@ -76,8 +78,8 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="getting-started.html" title="previous chapter">Getting Started</a></li>
-      <li>Next: <a href="automated-backport.html" title="next chapter">Automated Backport</a></li>
+      <li>Previous: <a href="actions.html" title="previous chapter">Actions</a></li>
+      <li>Next: <a href="examples.html" title="next chapter">Example Rules</a></li>
   </ul></li>
 </ul>
 </div>
@@ -101,11 +103,11 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="strict-workflow">
-<h1>Strict Workflow<a class="headerlink" href="#strict-workflow" title="Permalink to this headline">¶</a></h1>
-<p>The <em>strict</em> workflow is a workflow that prevents merging broken pull requests.
-That situation can arise when outdated pull requests are being merged in their
-base branch.</p>
+  <div class="section" id="strict-merge">
+<span id="id1"></span><h1>Strict Merge<a class="headerlink" href="#strict-merge" title="Permalink to this headline">¶</a></h1>
+<p>The <em>strict</em> merge workflow is a workflow that prevents merging broken pull
+requests. That situation can arise when outdated pull requests are being merged
+in their base branch.</p>
 <div class="section" id="understanding-the-problem">
 <h2>Understanding the Problem<a class="headerlink" href="#understanding-the-problem" title="Permalink to this headline">¶</a></h2>
 <p>To understand what the problem is, imagining the following situation: the base
@@ -149,25 +151,17 @@ postive reviews are enough.</p>
 <div class="section" id="enabling-the-strict-workflow">
 <h2>Enabling the Strict Workflow<a class="headerlink" href="#enabling-the-strict-workflow" title="Permalink to this headline">¶</a></h2>
 <p>To enable the <em>strict</em> workflow, you need to set the value of <code class="docutils literal notranslate"><span class="pre">strict</span></code> to
-<code class="docutils literal notranslate"><span class="pre">true</span></code> in the <a class="reference internal" href="configuration.html#required-status-checks"><span class="std std-ref">Required Status Checks</span></a> list.</p>
-<p>To enable it on all your branches, you can write a <code class="docutils literal notranslate"><span class="pre">mergify.yml</span></code> like this:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">required_status_checks</span><span class="p p-Indicator">:</span>
+<code class="docutils literal notranslate"><span class="pre">true</span></code> in the <a class="reference internal" href="actions.html#merge-action"><span class="std std-ref">merge</span></a> action.</p>
+<p>To enable it on a pull request, you can write a <code class="docutils literal notranslate"><span class="pre">mergify.yml</span></code> like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">pull_request_rules</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">automatic merge with strict</span>
+    <span class="l l-Scalar l-Scalar-Plain">conditions</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;#approved-reviews-by&gt;=2&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">status-success=continuous-integration/travis-ci</span>
+    <span class="l l-Scalar l-Scalar-Plain">actions</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">merge</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">method</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">merge</span>
         <span class="l l-Scalar l-Scalar-Plain">strict</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-</pre></div>
-</div>
-<p>Of course, it makes even more sense to enable it with a continuous integration
-system required to pass. If you use <a class="reference external" href="http://travis-ci.org">Travis CI</a>, your
-configuration would look like:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">required_status_checks</span><span class="p p-Indicator">:</span>
-        <span class="l l-Scalar l-Scalar-Plain">strict</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-        <span class="l l-Scalar l-Scalar-Plain">contexts</span><span class="p p-Indicator">:</span>
-          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">continuous-integration/travis-ci</span>
 </pre></div>
 </div>
 </div>

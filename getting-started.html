@@ -17,7 +17,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Strict Workflow" href="strict-workflow.html" />
+    <link rel="next" title="Configuration File Format" href="configuration.html" />
     <link rel="prev" title="Mergify.io’s documentation" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -53,14 +53,16 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#mergify-is-now-ready-what-will-happen-next">Mergify is now ready, what will happen next?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mergify-is-now-ready-what-happens-next">Mergify is now ready, what happens next?</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="strict-workflow.html">Strict Workflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automated-backport.html">Automated Backport</a></li>
-<li class="toctree-l1"><a class="reference internal" href="disabling.html">Disabling Mergify</a></li>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conditions.html">Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="actions.html">Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strict-workflow.html">Strict Merge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Example Rules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v1/index.html">(Deprecated) Engine Version 1 Documentation</a></li>
 </ul>
 
 
@@ -77,7 +79,7 @@
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="index.html" title="previous chapter">Mergify.io’s documentation</a></li>
-      <li>Next: <a href="strict-workflow.html" title="next chapter">Strict Workflow</a></li>
+      <li>Next: <a href="configuration.html" title="next chapter">Configuration File Format</a></li>
   </ul></li>
 </ul>
 </div>
@@ -115,112 +117,84 @@ and enroll repositories where you want Mergify to be enabled.</p>
 </div>
 <div class="section" id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="basics">
+<h3>Basics<a class="headerlink" href="#basics" title="Permalink to this headline">¶</a></h3>
 <p>In order for Mergify to apply your rules to your pull requests, you need to
 create a configuration file. The configuration file should be created in the
-root directory of each enabled repository and named <code class="docutils literal notranslate"><span class="pre">.mergify.yml</span></code>.</p>
+root directory of each enabled repository and named <code class="docutils literal notranslate"><span class="pre">.mergify.yml</span></code>. The
+configuration file format is entirely documented in <a class="reference internal" href="configuration.html#configuration-file-format"><span class="std std-ref">Configuration File Format</span></a>.</p>
 <p>Here’s how to create a file with a minimal content to enable Mergify:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> myrepository
-$ <span class="nb">echo</span> <span class="s2">&quot;rules:&quot;</span> &gt; .mergify.yml
+$ <span class="nb">echo</span> <span class="s2">&quot;pull_request_rules:&quot;</span> &gt; .mergify.yml
 $ git add .mergify.yml
 $ git commit -m <span class="s2">&quot;Enable mergify.io&quot;</span>
 $ git push
 </pre></div>
 </div>
-<p>Since this file does not contain any specific rules, the <a class="reference internal" href="configuration.html#default"><span class="std std-ref">default branch
-configuration</span></a> will be used. By default, Mergify will merge any pull
-request that has one approval review.</p>
-<p>A more realistic example of the <code class="docutils literal notranslate"><span class="pre">.mergify.yml</span></code> file would look like :</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">required_status_checks</span><span class="p p-Indicator">:</span>
-        <span class="l l-Scalar l-Scalar-Plain">contexts</span><span class="p p-Indicator">:</span>
-          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">continuous-integration/travis-ci</span>
-      <span class="l l-Scalar l-Scalar-Plain">required_pull_request_reviews</span><span class="p p-Indicator">:</span>
-        <span class="l l-Scalar l-Scalar-Plain">required_approving_review_count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+<p>Since this file does not contain any specific rules, Mergify won’t do anything.
+So let’s create a rule to make it useful!</p>
+</div>
+<div class="section" id="creating-rules">
+<h3>Creating Rules<a class="headerlink" href="#creating-rules" title="Permalink to this headline">¶</a></h3>
+<p>A more realistic example of a <code class="docutils literal notranslate"><span class="pre">.mergify.yml</span></code> file would look like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">pull_request_rules</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">automatic merge on CI success and review</span>
+    <span class="l l-Scalar l-Scalar-Plain">conditions</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">status-success=continuous-integration/travis-ci</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;#approved-reviews-by&gt;=2&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">actions</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">merge</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">method</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">merge</span>
 </pre></div>
 </div>
-<p>The key <code class="docutils literal notranslate"><span class="pre">default</span></code> stores the default merging rules to use on all branches.
-The <code class="docutils literal notranslate"><span class="pre">required_status_checks</span></code> lists all checks that must pass before merging a
-pull request. The <code class="docutils literal notranslate"><span class="pre">required_pull_request_reviews</span></code> defines how many reviewer
-of the repository should approve the pull request before it gets merged.</p>
-<p>In this case, two reviewers must approve the pull request and the Travis CI
-must pass before Mergify merges the pull request.</p>
-<p>You can define a per branch rule using the <code class="docutils literal notranslate"><span class="pre">branches</span></code> settings. To match
-multiple branches at once, you can use a regular expression:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">required_status_checks</span><span class="p p-Indicator">:</span>
-        <span class="l l-Scalar l-Scalar-Plain">contexts</span><span class="p p-Indicator">:</span>
-          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">continuous-integration/travis-ci</span>
-      <span class="l l-Scalar l-Scalar-Plain">required_pull_request_reviews</span><span class="p p-Indicator">:</span>
-        <span class="l l-Scalar l-Scalar-Plain">required_approving_review_count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
-  <span class="l l-Scalar l-Scalar-Plain">branches</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">stable/.*</span><span class="p p-Indicator">:</span>
-        <span class="l l-Scalar l-Scalar-Plain">required_pull_request_reviews</span><span class="p p-Indicator">:</span>
-          <span class="l l-Scalar l-Scalar-Plain">required_approving_review_count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-</pre></div>
+<p>The <code class="docutils literal notranslate"><span class="pre">name</span></code> of the rule is not used directly by Mergify, but is really useful
+when Mergify will report its status and for debugging rules. We advise setting
+an explicity name that makes sense to you.</p>
+<p>The key <code class="docutils literal notranslate"><span class="pre">conditions</span></code> defines the list of conditions that a pull request must
+match in order for the engine to execute the configured actions. In this
+example, there are 2 conditions to be met for the rule to be applied to a pull
+request:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">status-success=continuous-integration/travis-ci</span></code>: the <code class="docutils literal notranslate"><span class="pre">status-success</span></code>
+variable contains all the check services that successfully run on this pull
+request. In this case, it must contains <code class="docutils literal notranslate"><span class="pre">continuous-integration/travis-ci</span></code>
+for the rule to match: that would mean that the Travis&nbsp;CI reported a success
+status check.</li>
+<li><code class="docutils literal notranslate"><span class="pre">#approved-reviews-by&gt;=2</span></code>: the <code class="docutils literal notranslate"><span class="pre">approved-reviews-by</span></code> variable contains
+the list of collaborators that approved the pull request and, in this case,
+it must contains at least 2 members (note the <code class="docutils literal notranslate"><span class="pre">#</span></code> length operator used
+here).</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The <code class="docutils literal notranslate"><span class="pre">#</span></code> character is considered as the comment delimiter in YAML. <code class="docutils literal notranslate"><span class="pre">#</span></code> is
+also the length operator in Mergify’s conditions system, therefore don’t
+forget to use <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> around the condition.</p>
 </div>
-<p>In this example, pull requests sent to a branch whose name matches <code class="docutils literal notranslate"><span class="pre">stable/*</span></code>
-will only require one review approval and will still require Travis to pass.</p>
-<p>You can automatically merge a pull request as soon as all the required status
-checks pass:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">required_status_checks</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">contexts</span><span class="p p-Indicator">:</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">continuous-integration/travis-ci</span>
-    <span class="l l-Scalar l-Scalar-Plain">required_pull_request_reviews</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">required_approving_review_count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
-  <span class="l l-Scalar l-Scalar-Plain">branches</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">auto-deployment</span><span class="p p-Indicator">:</span>
-        <span class="l l-Scalar l-Scalar-Plain">required_pull_request_reviews</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
-</pre></div>
+<p>In this example, two reviewers must approve the pull request and the Travis&nbsp;CI
+must pass before Mergify executes the action: merging the pull request.</p>
+<p>The merge of the pull request is enabled by specifying the <code class="docutils literal notranslate"><span class="pre">merge</span></code> action
+with a <code class="docutils literal notranslate"><span class="pre">method</span></code> parameter containing the merge method to use.</p>
+<p>You can define any number of rules using any of the available conditions
+criterias; each rule that match will see its action executed.</p>
+<p>Fore more details about the configuration file format, check
+<a class="reference internal" href="configuration.html#configuration-file-format"><span class="std std-ref">Configuration File Format</span></a>.</p>
 </div>
-<p>With that configuration, pull requests sent to the branch auto-deployment
-require no approvals, while still requiring Travis continuous integration to
-succeed.</p>
-<p>You can also disable Mergify on a particular branch:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">required_status_checks</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">contexts</span><span class="p p-Indicator">:</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">continuous-integration/travis-ci</span>
-    <span class="l l-Scalar l-Scalar-Plain">required_pull_request_reviews</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">required_approving_review_count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
-  <span class="l l-Scalar l-Scalar-Plain">branches</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">^features/.*</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
-</pre></div>
 </div>
-<p>Here all branches starting by <code class="docutils literal notranslate"><span class="pre">features/</span></code> will not have Mergify enabled. All
-pull requests opened against thes branches will not be handled by Mergify, and
-GitHub branch protection will be disabled on them.</p>
-<p>You can read the <a class="reference internal" href="configuration.html"><span class="doc">full list of configuration option</span></a> for
-more information.</p>
-</div>
-<div class="section" id="mergify-is-now-ready-what-will-happen-next">
-<h2>Mergify is now ready, what will happen next?<a class="headerlink" href="#mergify-is-now-ready-what-will-happen-next" title="Permalink to this headline">¶</a></h2>
-<p>When a contributor sends a pull request to the repository, Mergify will post a
-status check about the state of the pull request according to the defined
-rules.</p>
-<img alt="status check" src="_images/mergify-status-ko.png" />
+<div class="section" id="mergify-is-now-ready-what-happens-next">
+<h2>Mergify is now ready, what happens next?<a class="headerlink" href="#mergify-is-now-ready-what-happens-next" title="Permalink to this headline">¶</a></h2>
+<p>When a user sends a pull request to the repository, Mergify will post a status
+check about the state of the pull request according to the defined rules.</p>
+<img alt="status check" src="_images/mergify-checks-status.png" />
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">When a pull request changes the configuration of Mergify, the <code class="docutils literal notranslate"><span class="pre">mergify/pr</span></code>
-status is built with the current configuration (without the pull request
-change). To validate the Mergify configuration change an additional status is
-posted named <code class="docutils literal notranslate"><span class="pre">mergify/future-config-checker</span></code>.</p>
+<p class="last">When a pull request changes the configuration of Mergify, the status is
+built with the current configuration (without the pull request change). To
+validate the Mergify configuration change an additional status is posted
+named <code class="docutils literal notranslate"><span class="pre">Mergify</span> <span class="pre">—</span> <span class="pre">future</span> <span class="pre">config</span> <span class="pre">checker</span></code>.</p>
 </div>
-<p>When all the criterias of the rules are satisfied, Mergify will merge the base
-branch into the pull request if the pull request is not up-to-date with the
-base branch. This is made to ensure that the pull request is tested one last
-time while being up-to-date with the base branch.</p>
-<p>Once the required services status are approved, Mergify will automatically
-merge the pull request:</p>
-<img alt="merge" src="_images/mergify-merge.png" />
+<p>When all the criterias of the rules are satisfied, Mergify will do the
+configure actions, such as merging the pull request.</p>
 <p>Now, that Mergify. is setup, you can go back on what matters for your project
 and let us babysit your pull requests!</p>
 </div>

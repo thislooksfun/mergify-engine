@@ -50,11 +50,13 @@
 <h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="strict-workflow.html">Strict Workflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="automated-backport.html">Automated Backport</a></li>
-<li class="toctree-l1"><a class="reference internal" href="disabling.html">Disabling Mergify</a></li>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conditions.html">Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="actions.html">Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strict-workflow.html">Strict Merge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Example Rules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v1/index.html">(Deprecated) Engine Version 1 Documentation</a></li>
 </ul>
 
 
@@ -102,39 +104,54 @@
 <li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="getting-started.html#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="getting-started.html#configuration">Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting-started.html#mergify-is-now-ready-what-will-happen-next">Mergify is now ready, what will happen next?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#mergify-is-now-ready-what-happens-next">Mergify is now ready, what happens next?</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="strict-workflow.html">Strict Workflow</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration File Format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conditions.html">Conditions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="conditions.html#grammar">Grammar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conditions.html#attribute-list">Attribute List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conditions.html#operators-list">Operators List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conditions.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="actions.html">Actions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="actions.html#backport">backport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="actions.html#close">close</a></li>
+<li class="toctree-l2"><a class="reference internal" href="actions.html#delete-head-branch">delete_head_branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="actions.html#dismiss-reviews">dismiss_reviews</a></li>
+<li class="toctree-l2"><a class="reference internal" href="actions.html#label">label</a></li>
+<li class="toctree-l2"><a class="reference internal" href="actions.html#merge">merge</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="strict-workflow.html">Strict Merge</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="strict-workflow.html#understanding-the-problem">Understanding the Problem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="strict-workflow.html#the-strict-workflow-solution">The Strict Workflow Solution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="strict-workflow.html#enabling-the-strict-workflow">Enabling the Strict Workflow</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="automated-backport.html">Automated Backport</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="automated-backport.html#how-it-works">How It Works</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="disabling.html">Disabling Mergify</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="disabling.html#disabling-for-some-pull-requests">Disabling for some Pull Requests</a></li>
-<li class="toctree-l2"><a class="reference internal" href="disabling.html#disabling-for-sensitive-files">Disabling for Sensitive Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="disabling.html#manual-activation">Manual activation</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration file</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#rule">Rule</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#merge-strategy">Merge Strategy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#protection">Protection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#required-status-checks">Required Status Checks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#required-reviews">Required Reviews</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#restriction">Restriction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#default-branch-configuration">Default branch configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Example Rules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#automatic-merge-when-ci-works-and-approving-reviews">Automatic Merge when CI works and approving reviews</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#using-labels-to-backport-pull-requests">Using Labels to Backport Pull-Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#deleting-merged-branch">Deleting Merged Branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#automatic-merge-for-automatic-pull-requests">Automatic Merge for Automatic Pull Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#less-strict-rules-for-stable-branches">Less Strict Rules for Stable Branches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#using-labels-to-enable-disable-merge">Using Labels to Enable/Disable Merge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#removing-stale-reviews">Removing Stale Reviews</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#where-is-the-mergify-configuration-file-located">Where is the mergify configuration file located?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#what-is-the-branch-picked-by-mergify-to-read-the-configuration">What is the branch picked by mergify to read the configuration?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-fix-the-pull-request-can-t-be-updated-with-latest-base-branch-changes-owner-doesn-t-allow-modification-error">How do I fix the <em>“Pull request can’t be updated with latest base branch changes, owner doesn’t allow modification”</em> error?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="v1/index.html">(Deprecated) Engine Version 1 Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="v1/configuration.html">Configuration file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="v1/automated-backport.html">Automated Backport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="v1/disabling.html">Disabling Mergify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="v1/configuration.html">Configuration file</a></li>
 </ul>
 </li>
 </ul>
