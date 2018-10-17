@@ -72,9 +72,9 @@
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
-    
     <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
+    
+    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
     
 </ul>
 <div class="relations">
@@ -184,30 +184,9 @@ automatically delete the backport head branch that it created.</p>
 that is the branch which hosts the commits. This only works if the branch is
 stored in the same repository that the pull request target, i.e., if the pull
 request comes from the same repository and not form a fork.</p>
-<table border="1" class="colwidths-given docutils">
-<colgroup>
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="40%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Key Name</th>
-<th class="head">Value Type</th>
-<th class="head">Default</th>
-<th class="head">Value Description</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">on</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">merge</span></code> or <code class="docutils literal notranslate"><span class="pre">close</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">merge</span></code></td>
-<td>When to delete the head branch: <code class="docutils literal notranslate"><span class="pre">merge</span></code> will only delete the branch
-when the pull request is merged, whereas <code class="docutils literal notranslate"><span class="pre">close</span></code> will delete the
-branch if the pull request is merged or closed.</td>
-</tr>
-</tbody>
-</table>
+<p>This action takes no configuration options. The action will happen when the
+pull request is closed or merged: you can decide what suits you best using
+<a class="reference internal" href="conditions.html#conditions"><span class="std std-ref">Conditions</span></a>.</p>
 </div>
 <div class="section" id="dismiss-reviews">
 <span id="dismiss-reviews-action"></span><h2>dismiss_reviews<a class="headerlink" href="#dismiss-reviews" title="Permalink to this headline">¶</a></h2>
