@@ -74,9 +74,9 @@
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
-    
     <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
+    
+    <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
     
 </ul>
 <div class="relations">
@@ -280,10 +280,12 @@ as the pull request gets updated with new commits.</p>
 <h2>Require All Requested Reviews to Be Approved<a class="headerlink" href="#require-all-requested-reviews-to-be-approved" title="Permalink to this headline">¶</a></h2>
 <p>If all requested reviews have been approved, then the number of
 <code class="docutils literal notranslate"><span class="pre">review-requested</span></code>, <code class="docutils literal notranslate"><span class="pre">changes-requested-reviews-by</span></code>, and
-<code class="docutils literal notranslate"><span class="pre">commented-reviews-by</span></code> will all be 0.</p>
+<code class="docutils literal notranslate"><span class="pre">commented-reviews-by</span></code> will all be 0. You also want to make sure there’s at
+least one positive review, obviously.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">pull_request_rules</span><span class="p p-Indicator">:</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">remove outdated reviews</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">merge when all requested reviews are valid</span>
     <span class="l l-Scalar l-Scalar-Plain">conditions</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;#approved-reviews-by&gt;=1&quot;</span>
       <span class="p p-Indicator">-</span> <span class="s">&quot;#review-requested=0&quot;</span>
       <span class="p p-Indicator">-</span> <span class="s">&quot;#changes-requested-reviews-by=0&quot;</span>
       <span class="p p-Indicator">-</span> <span class="s">&quot;#commented-reviews-by=0&quot;</span>
