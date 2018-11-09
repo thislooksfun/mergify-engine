@@ -69,9 +69,9 @@
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
-    
     <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
+    
+    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
     
 </ul>
 <div class="relations">
@@ -140,7 +140,7 @@ So let’s create a rule to make it useful!</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">pull_request_rules</span><span class="p p-Indicator">:</span>
   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">automatic merge on CI success and review</span>
     <span class="l l-Scalar l-Scalar-Plain">conditions</span><span class="p p-Indicator">:</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">status-success=continuous-integration/travis-ci</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">status-success=continuous-integration/travis-ci/pr</span>
       <span class="p p-Indicator">-</span> <span class="s">&quot;#approved-reviews-by&gt;=2&quot;</span>
     <span class="l l-Scalar l-Scalar-Plain">actions</span><span class="p p-Indicator">:</span>
       <span class="l l-Scalar l-Scalar-Plain">merge</span><span class="p p-Indicator">:</span>
@@ -155,9 +155,9 @@ match in order for the engine to execute the configured actions. In this
 example, there are 2 conditions to be met for the rule to be applied to a pull
 request:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">status-success=continuous-integration/travis-ci</span></code>: the <code class="docutils literal notranslate"><span class="pre">status-success</span></code>
+<li><code class="docutils literal notranslate"><span class="pre">status-success=continuous-integration/travis-ci/pr</span></code>: the <code class="docutils literal notranslate"><span class="pre">status-success</span></code>
 variable contains all the check services that successfully run on this pull
-request. In this case, it must contains <code class="docutils literal notranslate"><span class="pre">continuous-integration/travis-ci</span></code>
+request. In this case, it must contains <code class="docutils literal notranslate"><span class="pre">continuous-integration/travis-ci/pr</span></code>
 for the rule to match: that would mean that the Travis&nbsp;CI reported a success
 status check.</li>
 <li><code class="docutils literal notranslate"><span class="pre">#approved-reviews-by&gt;=2</span></code>: the <code class="docutils literal notranslate"><span class="pre">approved-reviews-by</span></code> variable contains
