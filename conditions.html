@@ -69,9 +69,9 @@
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
-    
     <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
+    
+    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
     
 </ul>
 <div class="relations">
@@ -242,11 +242,17 @@ on the repository.</td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">status-success</span></code></td>
 <td>array of string</td>
-<td>The list of status checks that successfuly passed for the pull request.</td>
+<td>The list of status checks that successfuly passed for the pull request.
+This is the name of a <em>status check</em> such as
+<cite>continuous-integration/travis-ci/pr</cite> or of a <em>check run</em> such as
+<cite>Travis CI - Pull Request</cite>.</td>
 </tr>
 <tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">status-failure</span></code></td>
 <td>array of string</td>
-<td>The list of status checks that failed for the pull request.</td>
+<td>The list of status checks that failed for the pull request.
+This is the name of a <em>status check</em> such as
+<cite>continuous-integration/travis-ci/pr</cite> or of a <em>check run</em> such as
+<cite>Travis CI - Pull Request</cite>.</td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">title</span></code></td>
 <td>string</td>
