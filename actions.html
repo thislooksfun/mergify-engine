@@ -54,6 +54,7 @@
 <li class="toctree-l1"><a class="reference internal" href="conditions.html">Conditions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Actions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#backport">backport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#comment">comment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#close">close</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#delete-head-branch">delete_head_branch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dismiss-reviews">dismiss_reviews</a></li>
@@ -71,9 +72,9 @@
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
-    
     <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
+    
+    <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
     
 </ul>
 <div class="relations">
@@ -150,6 +151,32 @@ parameter:</p>
 </table>
 <p>Once the backporting pull request is closed or merged, Mergify will
 automatically delete the backport head branch that it created.</p>
+</div>
+<div class="section" id="comment">
+<span id="comment-action"></span><h2>comment<a class="headerlink" href="#comment" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">comment</span></code> action adds a comment to the pull request.</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="40%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key Name</th>
+<th class="head">Value Type</th>
+<th class="head">Default</th>
+<th class="head">Value Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">message</span></code></td>
+<td>string</td>
+<td>None</td>
+<td>The message to write as a comment.</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="close">
 <span id="close-action"></span><h2>close<a class="headerlink" href="#close" title="Permalink to this headline">¶</a></h2>

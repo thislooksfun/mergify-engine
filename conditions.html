@@ -69,9 +69,9 @@
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
-    
     <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
+    
+    <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
     
 </ul>
 <div class="relations">
@@ -156,7 +156,8 @@ forget to use <code class="docutils literal notranslate"><span class="pre">&quot
 <tbody valign="top">
 <tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">assignee</span></code></td>
 <td>array of string</td>
-<td>The list of GitHub user login that are assigned to the pull request.</td>
+<td>The list of GitHub user or team login that are assigned to the pull request.
+Team logins are prefixed with the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> character.</td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">approved-reviews-by</span></code></td>
 <td>array of string</td>
@@ -167,7 +168,8 @@ on the repository.</td>
 </tr>
 <tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">author</span></code></td>
 <td>string</td>
-<td>The GitHub login of the author of the pull request.</td>
+<td>The GitHub user or team login of the author of the pull request.
+Team logins are prefixed with the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> character.</td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">base</span></code></td>
 <td>string</td>
@@ -227,7 +229,8 @@ on the repository.</td>
 </tr>
 <tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">merged-by</span></code></td>
 <td>string</td>
-<td>The GitHub login of the user that merged the pull request.</td>
+<td>The GitHub user or team login that merged the pull request.
+Team logins are prefixed with the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> character.</td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">milestone</span></code></td>
 <td>string</td>
