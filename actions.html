@@ -72,9 +72,9 @@
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
-    
     <li class="toctree-l1"><a href="https://mergify.io">Website</a></li>
+    
+    <li class="toctree-l1"><a href="mailto:support@mergify.io">Support</a></li>
     
 </ul>
 <div class="relations">
@@ -328,6 +328,22 @@ merged will be merged; the remaining pull request will be updated once
 again. If you prefer to update one pull request at a time (for example,
 to save CI runtime), set <code class="docutils literal notranslate"><span class="pre">strict</span></code> to <code class="docutils literal notranslate"><span class="pre">smart</span></code> instead: Mergify will
 queue the mergeable pull requests and update them one at a time serially.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">strict_method</span></code></td>
+<td>string</td>
+<td><code class="docutils literal notranslate"><span class="pre">merge</span></code></td>
+<td><p class="first">Base branch update method when strict mode is enabled.
+Possible values are <code class="docutils literal notranslate"><span class="pre">merge</span></code> or <code class="docutils literal notranslate"><span class="pre">rebase</span></code>.
+Note that <code class="docutils literal notranslate"><span class="pre">rebase</span></code> has many drawbacks due to the change of all commits
+sha of the pull request. For example:</p>
+<ul class="last simple">
+<li>Your contributor will need to “force push” its own branch if it adds new commits.</li>
+<li>GitHub branch protection of your repository may dismiss approved reviews.</li>
+<li>GitHub branch protection of the contributor repository may refuse Mergify to
+force push the rebased pull request.</li>
+<li>GPG signed commits will lost their signatures.</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
