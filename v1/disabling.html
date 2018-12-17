@@ -114,9 +114,9 @@ there are always a few corner cases where automation could get in your way.</p>
 present disables Mergify. The default label name is <code class="docutils literal notranslate"><span class="pre">no-mergify</span></code>. Just create
 this label if it does not exist in your repository, and apply to any pull
 request you want Mergify to ignore.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">disabling_label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">no-mergify</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">rules</span><span class="p">:</span>
+  <span class="nt">default</span><span class="p">:</span>
+    <span class="nt">disabling_label</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">no-mergify</span>
 </pre></div>
 </div>
 </div>
@@ -126,9 +126,9 @@ request you want Mergify to ignore.</p>
 in this option is modified by the pull request, Mergify ignores the pull
 request. That is especially handy if you don’t want to manually merge some pull
 requests that modify sensitive files.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">disabling_files</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">rules</span><span class="p">:</span>
+  <span class="nt">default</span><span class="p">:</span>
+    <span class="nt">disabling_files</span><span class="p">:</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">credentials.txt</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">prod-config.yaml</span>
 </pre></div>
@@ -142,11 +142,11 @@ disables Mergify.</p>
 <p>That option is especially useful if you want to have a two-phases approval: for
 example, you can force the pull request to have at least one reviewer while not
 having it merged unless the <code class="docutils literal notranslate"><span class="pre">ready-to-be-merged</span></code> label is present:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">protection</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">required_approving_review_count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-    <span class="l l-Scalar l-Scalar-Plain">enabling_label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">ready-to-be-merged</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">rules</span><span class="p">:</span>
+  <span class="nt">default</span><span class="p">:</span>
+    <span class="nt">protection</span><span class="p">:</span>
+      <span class="nt">required_approving_review_count</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+    <span class="nt">enabling_label</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ready-to-be-merged</span>
 </pre></div>
 </div>
 </div>

@@ -333,14 +333,14 @@ permission on the repository are used, others are ignored.</p>
 <h3>Matching Pull Requests Passing Travis and Being Approved<a class="headerlink" href="#matching-pull-requests-passing-travis-and-being-approved" title="Permalink to this headline">¶</a></h3>
 <p>Those conditions will match any pull request that has been approved by two
 reviewers and where Travis CI passes.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">conditions</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">conditions</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="s">&quot;#approved-reviews-by&gt;=2&quot;</span>
   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">status-success=continuous-integration/travis-ci/pr</span>
 </pre></div>
 </div>
 <p>If you want to ignore pull request that has a negative review, you can enhance
 this condition set like this:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">conditions</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">conditions</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="s">&quot;#approved-reviews-by&gt;=2&quot;</span>
   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">status-success=continuous-integration/travis-ci/pr</span>
   <span class="p p-Indicator">-</span> <span class="s">&quot;#changes-requested-reviews-by=0&quot;</span>
@@ -352,12 +352,12 @@ review is not matched.</p>
 <div class="section" id="matching-merged-pull-requests">
 <h3>Matching Merged Pull Requests<a class="headerlink" href="#matching-merged-pull-requests" title="Permalink to this headline">¶</a></h3>
 <p>Matching merged pull requests is straight forward:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">conditions</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">conditions</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">merged</span>
 </pre></div>
 </div>
 <p>On the other hand, matching unmerged pull requests can be done with:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">conditions</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">conditions</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">-merged</span>
 </pre></div>
 </div>

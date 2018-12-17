@@ -52,6 +52,7 @@
 <li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration File Format</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#validation">Validation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="conditions.html">Conditions</a></li>
@@ -144,19 +145,34 @@ actions are executed in that same order.</p>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>Here’s a simple example of a configuration file:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">pull_request_rules</span><span class="p p-Indicator">:</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">automatic merge when CI passes and 2 reviews</span>
-    <span class="l l-Scalar l-Scalar-Plain">conditions</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">pull_request_rules</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">automatic merge when CI passes and 2 reviews</span>
+    <span class="nt">conditions</span><span class="p">:</span>
       <span class="p p-Indicator">-</span> <span class="s">&quot;#approved-reviews-by&gt;=2&quot;</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">status-success=continuous-integration/travis-ci</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">base=master</span>
-    <span class="l l-Scalar l-Scalar-Plain">actions</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">merge</span><span class="p p-Indicator">:</span>
-        <span class="l l-Scalar l-Scalar-Plain">method</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">merge</span>
+    <span class="nt">actions</span><span class="p">:</span>
+      <span class="nt">merge</span><span class="p">:</span>
+        <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">merge</span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="examples.html#examples"><span class="std std-ref">Example Rules</span></a> for more examples.</p>
 </div>
+<div class="section" id="validation">
+<h2>Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h2>
+<p>Usually <code class="docutils literal notranslate"><span class="pre">.mergify.yml</span></code> configuration change should be done via a pull
+request, in order for Mergify to validate it.</p>
+<p>However if you are creating the initial configuration or want to validate it
+locally before sending a pull request, you can use:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd &lt;my_project&gt;
+$ curl -F &#39;data=@.mergify.yml&#39; https://gh.mergify.io/validate
+</pre></div>
+</div>
+<p>Or by uploading the configuration file with this form:</p>
+<form method=post enctype=multipart/form-data action=https://gh.mergify.io/validate target=_blank>
+  <input type=file name=data>
+  <input type=submit value=Validate>
+</form></div>
 </div>
 
 
