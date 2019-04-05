@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Example Rules &#8212; Mergify.io  documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -95,8 +93,6 @@
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -196,7 +192,7 @@ integration system validates them.</p>
 </pre></div>
 </div>
 <p>That would automatically merge any pull request created by Dependabot for the
-<code class="docutils literal notranslate"><span class="pre">master</span></code> branch where Travis&nbsp;CI passes.</p>
+<code class="docutils literal notranslate"><span class="pre">master</span></code> branch where Travis CI passes.</p>
 </div>
 <div class="section" id="less-strict-rules-for-stable-branches">
 <h2>Less Strict Rules for Stable Branches<a class="headerlink" href="#less-strict-rules-for-stable-branches" title="Permalink to this headline">¶</a></h2>
@@ -260,7 +256,7 @@ labelled as <code class="docutils literal notranslate"><span class="pre">work-in
 </pre></div>
 </div>
 <p>In that case, if a pull request gets labelled with <code class="docutils literal notranslate"><span class="pre">work-in-progress</span></code>, it
-won’t be merged, even if approved by 2 contributors and having Travis&nbsp;CI
+won’t be merged, even if approved by 2 contributors and having Travis CI
 passing.</p>
 </div>
 <div class="section" id="removing-stale-reviews">

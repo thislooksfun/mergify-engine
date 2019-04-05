@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>FAQ &#8212; Mergify.io  documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -89,8 +87,6 @@
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -121,8 +117,8 @@ GitHub documentation</a>.</p>
 <span id="migration-v2"></span><h2>How do I migrate from engine v1 to engine v2?<a class="headerlink" href="#how-do-i-migrate-from-engine-v1-to-engine-v2" title="Permalink to this headline">¶</a></h2>
 <p>You just need to update your configuration file to the new format with the
 following command:</p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd &lt;my_project&gt;
-$ curl -F &#39;data=@.mergify.yml&#39; https://gh.mergify.io/convert
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> &lt;my_project&gt;
+$ curl -F <span class="s1">&#39;data=@.mergify.yml&#39;</span> https://gh.mergify.io/convert
 </pre></div>
 </div>
 <p>Or by uploading the configuration file with this form:</p>

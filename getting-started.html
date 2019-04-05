@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Getting Started &#8212; Mergify.io  documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -90,8 +88,6 @@
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -156,23 +152,23 @@ match in order for the engine to execute the configured actions. In this
 example, there are 2 conditions to be met for the rule to be applied to a pull
 request:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">status-success=continuous-integration/travis-ci/pr</span></code>: the <code class="docutils literal notranslate"><span class="pre">status-success</span></code>
+<li><p><code class="docutils literal notranslate"><span class="pre">status-success=continuous-integration/travis-ci/pr</span></code>: the <code class="docutils literal notranslate"><span class="pre">status-success</span></code>
 variable contains all the check services that successfully run on this pull
 request. In this case, it must contains <code class="docutils literal notranslate"><span class="pre">continuous-integration/travis-ci/pr</span></code>
-for the rule to match: that would mean that the Travis&nbsp;CI reported a success
-status check.</li>
-<li><code class="docutils literal notranslate"><span class="pre">#approved-reviews-by&gt;=2</span></code>: the <code class="docutils literal notranslate"><span class="pre">approved-reviews-by</span></code> variable contains
+for the rule to match: that would mean that the Travis CI reported a success
+status check.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#approved-reviews-by&gt;=2</span></code>: the <code class="docutils literal notranslate"><span class="pre">approved-reviews-by</span></code> variable contains
 the list of collaborators that approved the pull request and, in this case,
 it must contains at least 2 members (note the <code class="docutils literal notranslate"><span class="pre">#</span></code> length operator used
-here).</li>
+here).</p></li>
 </ul>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">The <code class="docutils literal notranslate"><span class="pre">#</span></code> character is considered as the comment delimiter in YAML. <code class="docutils literal notranslate"><span class="pre">#</span></code> is
+<p class="admonition-title">Warning</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">#</span></code> character is considered as the comment delimiter in YAML. <code class="docutils literal notranslate"><span class="pre">#</span></code> is
 also the length operator in Mergify’s conditions system, therefore don’t
 forget to use <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> around the condition.</p>
 </div>
-<p>In this example, two reviewers must approve the pull request and the Travis&nbsp;CI
+<p>In this example, two reviewers must approve the pull request and the Travis CI
 must pass before Mergify executes the action: merging the pull request.</p>
 <p>The merge of the pull request is enabled by specifying the <code class="docutils literal notranslate"><span class="pre">merge</span></code> action
 with a <code class="docutils literal notranslate"><span class="pre">method</span></code> parameter containing the merge method to use.</p>
@@ -188,8 +184,8 @@ criterias; each rule that match will see its action executed.</p>
 check about the state of the pull request according to the defined rules.</p>
 <img alt="status check" src="_images/mergify-checks-status.png" />
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">When a pull request changes the configuration of Mergify, the status is
+<p class="admonition-title">Note</p>
+<p>When a pull request changes the configuration of Mergify, the status is
 built with the current configuration (without the pull request change). To
 validate the Mergify configuration change an additional status is posted
 named <code class="docutils literal notranslate"><span class="pre">Mergify</span> <span class="pre">—</span> <span class="pre">future</span> <span class="pre">config</span> <span class="pre">checker</span></code>.</p>
