@@ -56,6 +56,7 @@
 <li class="toctree-l1"><a class="reference internal" href="badge.html">Badge</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">FAQ</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-fix-the-pull-request-can-t-be-updated-with-latest-base-branch-changes-owner-doesn-t-allow-modification-error">How do I fix the <em>“Pull request can’t be updated with latest base branch changes, owner doesn’t allow modification”</em> error?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mergify-is-unable-to-merge-my-pull-request-due-to-my-branch-protection-settings">Mergify is unable to merge my pull request due to my branch protection settings</a></li>
 </ul>
 </li>
 </ul>
@@ -108,6 +109,15 @@ this error. The solution is for the author of the pull request to either update
 manually its branch to the target branch (via a <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">merge</span></code> or a <code class="docutils literal notranslate"><span class="pre">git</span>
 <span class="pre">rebase</span></code>) or to give permission for Mergify to do it as described in <a class="reference external" href="https://help.github.com/articles/allowing-changes-to-a-pull-request-branch-created-from-a-fork/">the
 GitHub documentation</a>.</p>
+</div>
+<div class="section" id="mergify-is-unable-to-merge-my-pull-request-due-to-my-branch-protection-settings">
+<h2>Mergify is unable to merge my pull request due to my branch protection settings<a class="headerlink" href="#mergify-is-unable-to-merge-my-pull-request-due-to-my-branch-protection-settings" title="Permalink to this headline">¶</a></h2>
+<p>This happens usually if you limit the peopel that have the authorization to
+merge pull requests. GitHub does not offer any way to authorize GitHub
+Application (such as Mergify) to merge pull requests if you decide to set up
+branch protection.</p>
+<p>You should disable this branch protection setting if you want to use Mergify
+merge action.</p>
 </div>
 </div>
 
