@@ -57,6 +57,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">FAQ</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-fix-the-pull-request-can-t-be-updated-with-latest-base-branch-changes-owner-doesn-t-allow-modification-error">How do I fix the <em>“Pull request can’t be updated with latest base branch changes, owner doesn’t allow modification”</em> error?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#mergify-is-unable-to-merge-my-pull-request-due-to-my-branch-protection-settings">Mergify is unable to merge my pull request due to my branch protection settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#why-did-mergify-seem-to-have-merged-my-pull-request-whereas-all-conditions-were-not-true">Why did Mergify seem to have merged my pull request whereas all conditions were not true?</a></li>
 </ul>
 </li>
 </ul>
@@ -118,6 +119,17 @@ Application (such as Mergify) to merge pull requests if you decide to set up
 branch protection.</p>
 <p>You should disable this branch protection setting if you want to use Mergify
 merge action.</p>
+</div>
+<div class="section" id="why-did-mergify-seem-to-have-merged-my-pull-request-whereas-all-conditions-were-not-true">
+<h2>Why did Mergify seem to have merged my pull request whereas all conditions were not true?<a class="headerlink" href="#why-did-mergify-seem-to-have-merged-my-pull-request-whereas-all-conditions-were-not-true" title="Permalink to this headline">¶</a></h2>
+<p>The GitHub user interface might be misleading you in thinking that your pull
+request has been merged by Mergify, while it wasn’t.
+If your pull request A has all its commits contained in another pull request B,
+and if B is merged by Mergify, then A will appeared to have been merged by
+Mergify too. GitHub detects that A’s commits are a subset of B’s commits and
+therefore decides to automatically marks pull request A as merged.</p>
+<p>Be sure that Mergify did nothing on the pull request A if it told you so in the
+Checks tab. This is GitHub UI magic.</p>
 </div>
 </div>
 
