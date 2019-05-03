@@ -185,9 +185,9 @@ check about the state of the pull request according to the defined rules.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>When a pull request changes the configuration of Mergify, the status is
-built with the current configuration (without the pull request change). To
-validate the Mergify configuration change an additional status is posted
-named <code class="docutils literal notranslate"><span class="pre">Mergify</span> <span class="pre">—</span> <span class="pre">future</span> <span class="pre">config</span> <span class="pre">checker</span></code>.</p>
+built with the current configuration (without the pull request change). The
+Mergify configuration is validated and status is posted in the <code class="docutils literal notranslate"><span class="pre">Summary</span></code>
+check.</p>
 </div>
 <p>When all the criterias of the rules are satisfied, Mergify will do the
 configure actions, such as merging the pull request.</p>
