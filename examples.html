@@ -57,11 +57,11 @@
 <li class="toctree-l2"><a class="reference internal" href="#automatic-merge-when-ci-works-and-approving-reviews">Automatic Merge when CI works and approving reviews</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#using-labels-to-backport-pull-requests">Using Labels to Backport Pull-Requests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#deleting-merged-branch">Deleting Merged Branch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#automatic-merge-for-automatic-pull-requests">Automatic Merge for Automatic Pull Requests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#less-strict-rules-for-stable-branches">Less Strict Rules for Stable Branches</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#using-labels-to-enable-disable-merge">Using Labels to Enable/Disable Merge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#removing-stale-reviews">Removing Stale Reviews</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#require-all-requested-reviews-to-be-approved">Require All Requested Reviews to Be Approved</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bots">Bots</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="badge.html">Badge</a></li>
@@ -109,8 +109,24 @@
 <p>You can define more specific rules based on the large number of criterias
 available: pull request author, base branch, labels, files, etc.</p>
 <p>Here’s a few example that should help you getting started.</p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#automatic-merge-when-ci-works-and-approving-reviews" id="id2">Automatic Merge when CI works and approving reviews</a></p></li>
+<li><p><a class="reference internal" href="#using-labels-to-backport-pull-requests" id="id3">Using Labels to Backport Pull-Requests</a></p></li>
+<li><p><a class="reference internal" href="#deleting-merged-branch" id="id4">Deleting Merged Branch</a></p></li>
+<li><p><a class="reference internal" href="#less-strict-rules-for-stable-branches" id="id5">Less Strict Rules for Stable Branches</a></p></li>
+<li><p><a class="reference internal" href="#using-labels-to-enable-disable-merge" id="id6">Using Labels to Enable/Disable Merge</a></p></li>
+<li><p><a class="reference internal" href="#removing-stale-reviews" id="id7">Removing Stale Reviews</a></p></li>
+<li><p><a class="reference internal" href="#require-all-requested-reviews-to-be-approved" id="id8">Require All Requested Reviews to Be Approved</a></p></li>
+<li><p><a class="reference internal" href="#bots" id="id9">Bots</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id1" id="id10">Dependabot</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
 <div class="section" id="automatic-merge-when-ci-works-and-approving-reviews">
-<h2>Automatic Merge when CI works and approving reviews<a class="headerlink" href="#automatic-merge-when-ci-works-and-approving-reviews" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id2">Automatic Merge when CI works and approving reviews</a><a class="headerlink" href="#automatic-merge-when-ci-works-and-approving-reviews" title="Permalink to this headline">¶</a></h2>
 <p>This is the classic rule that enables Mergify automatic merge when the
 continuous integration system validates the pull request and a human reviewed
 it.</p>
@@ -142,7 +158,7 @@ merged — even if’s approved.</p>
 </div>
 </div>
 <div class="section" id="using-labels-to-backport-pull-requests">
-<h2>Using Labels to Backport Pull-Requests<a class="headerlink" href="#using-labels-to-backport-pull-requests" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">Using Labels to Backport Pull-Requests</a><a class="headerlink" href="#using-labels-to-backport-pull-requests" title="Permalink to this headline">¶</a></h2>
 <p>Copying pull requests to a maintenance branch is something common as explained
 in <a class="reference internal" href="actions.html#backport-action"><span class="std std-ref">backport</span></a>. In order to elect a pull request to be backported,
 it’s common to use a label. You could write a rule such as:</p>
@@ -159,7 +175,7 @@ it’s common to use a label. You could write a rule such as:</p>
 </div>
 </div>
 <div class="section" id="deleting-merged-branch">
-<h2>Deleting Merged Branch<a class="headerlink" href="#deleting-merged-branch" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Deleting Merged Branch</a><a class="headerlink" href="#deleting-merged-branch" title="Permalink to this headline">¶</a></h2>
 <p>Some users create pull request from the same repository by using different
 branch, rather than creating a pull request from a fork. That’s fine, but it
 tends to leave a lot of useless branch behind when the pull request is merged.</p>
@@ -172,29 +188,8 @@ tends to leave a lot of useless branch behind when the pull request is merged.</
 </pre></div>
 </div>
 </div>
-<div class="section" id="automatic-merge-for-automatic-pull-requests">
-<h2>Automatic Merge for Automatic Pull Requests<a class="headerlink" href="#automatic-merge-for-automatic-pull-requests" title="Permalink to this headline">¶</a></h2>
-<p>Some pull request might be created automatically by other tools, such as
-<a class="reference external" href="https://dependabot.com/">Dependabot</a>. You might decide that there’s no need
-to manually review and approve those pull request as long as your continuous
-integration system validates them.</p>
-<p>Therefore, you could write a rule such as:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">pull_request_rules</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">automatic merge for Dependabot pull requests on master</span>
-    <span class="nt">conditions</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">author=dependabot[bot]</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">status-success=Travis CI - Pull Request</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">base=master</span>
-    <span class="nt">actions</span><span class="p">:</span>
-      <span class="nt">merge</span><span class="p">:</span>
-        <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">merge</span>
-</pre></div>
-</div>
-<p>That would automatically merge any pull request created by Dependabot for the
-<code class="docutils literal notranslate"><span class="pre">master</span></code> branch where Travis CI passes.</p>
-</div>
 <div class="section" id="less-strict-rules-for-stable-branches">
-<h2>Less Strict Rules for Stable Branches<a class="headerlink" href="#less-strict-rules-for-stable-branches" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">Less Strict Rules for Stable Branches</a><a class="headerlink" href="#less-strict-rules-for-stable-branches" title="Permalink to this headline">¶</a></h2>
 <p>Some projects like having easier review requirements for stable/maintenance
 branches. That usually means having e.g. 2 review requested for merging into
 master, but only one for a stable branch, since those pull request are
@@ -221,7 +216,7 @@ essentially backport from <code class="docutils literal notranslate"><span class
 </div>
 </div>
 <div class="section" id="using-labels-to-enable-disable-merge">
-<h2>Using Labels to Enable/Disable Merge<a class="headerlink" href="#using-labels-to-enable-disable-merge" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">Using Labels to Enable/Disable Merge</a><a class="headerlink" href="#using-labels-to-enable-disable-merge" title="Permalink to this headline">¶</a></h2>
 <p>Some developers are not comfortable with having a final step before merging the
 code. In that case, you can add a condition using a <code class="docutils literal notranslate"><span class="pre">label</span></code>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">pull_request_rules</span><span class="p">:</span>
@@ -259,7 +254,7 @@ won’t be merged, even if approved by 2 contributors and having Travis CI
 passing.</p>
 </div>
 <div class="section" id="removing-stale-reviews">
-<h2>Removing Stale Reviews<a class="headerlink" href="#removing-stale-reviews" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">Removing Stale Reviews</a><a class="headerlink" href="#removing-stale-reviews" title="Permalink to this headline">¶</a></h2>
 <p>When a pull request is updated, GitHub does not remove the possibly outdated
 reviews approvals or changes request. It’s a good idea to remove them as soon
 as the pull request gets updated with new commits.</p>
@@ -273,7 +268,7 @@ as the pull request gets updated with new commits.</p>
 </div>
 </div>
 <div class="section" id="require-all-requested-reviews-to-be-approved">
-<h2>Require All Requested Reviews to Be Approved<a class="headerlink" href="#require-all-requested-reviews-to-be-approved" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">Require All Requested Reviews to Be Approved</a><a class="headerlink" href="#require-all-requested-reviews-to-be-approved" title="Permalink to this headline">¶</a></h2>
 <p>If all requested reviews have been approved, then the number of
 <code class="docutils literal notranslate"><span class="pre">review-requested</span></code>, <code class="docutils literal notranslate"><span class="pre">changes-requested-reviews-by</span></code>, and
 <code class="docutils literal notranslate"><span class="pre">commented-reviews-by</span></code> will all be 0. You also want to make sure there’s at
@@ -292,6 +287,28 @@ least one positive review, obviously.</p>
 </div>
 <p>Note that if a requested review is dismissed, then it doesn’t count as a review
 that would prevent the merge.</p>
+</div>
+<div class="section" id="bots">
+<h2><a class="toc-backref" href="#id9">Bots</a><a class="headerlink" href="#bots" title="Permalink to this headline">¶</a></h2>
+<p>Some pull request might be created automatically by other tools, such as
+<a class="reference external" href="https://dependabot.com/">Dependabot</a>. You might decide that there’s no need
+to manually review and approve those pull request as long as your continuous
+integration system validates them.</p>
+<p>The rules below are samples for such services. <code class="docutils literal notranslate"><span class="pre">Travis</span> <span class="pre">CI</span> <span class="pre">-</span> <span class="pre">Pull</span> <span class="pre">Request</span></code> is
+used as the CI, but it can be anything that you need.</p>
+<div class="section" id="id1">
+<h3><a class="toc-backref" href="#id10">Dependabot</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">pull_request_rules</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">automatic merge for Dependabot pull requests</span>
+    <span class="nt">conditions</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">author=dependabot[bot]</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">status-success=Travis CI - Pull Request</span>
+    <span class="nt">actions</span><span class="p">:</span>
+      <span class="nt">merge</span><span class="p">:</span>
+        <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">merge</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
