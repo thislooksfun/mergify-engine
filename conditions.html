@@ -54,6 +54,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#grammar">Grammar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#attribute-list">Attribute List</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#operators-list">Operators List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#about-status-check-name">About status check name</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
 </ul>
 </li>
@@ -245,14 +246,16 @@ on the repository.</p></td>
 <td><p>The list of status checks that successfuly passed for the pull request.
 This is the name of a <em>status check</em> such as
 <cite>continuous-integration/travis-ci/pr</cite> or of a <em>check run</em> such as
-<cite>Travis CI - Pull Request</cite>.</p></td>
+<cite>Travis CI - Pull Request</cite>. See <a class="reference internal" href="#about-status-check-name">About status check name</a> for more
+details.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">status-failure</span></code></p></td>
 <td><p>array of string</p></td>
 <td><p>The list of status checks that failed for the pull request.
 This is the name of a <em>status check</em> such as
 <cite>continuous-integration/travis-ci/pr</cite> or of a <em>check run</em> such as
-<cite>Travis CI - Pull Request</cite>.</p></td>
+<cite>Travis CI - Pull Request</cite>. See <a class="reference internal" href="#about-status-check-name">About status check name</a> for more
+details.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">title</span></code></p></td>
 <td><p>string</p></td>
@@ -322,6 +325,21 @@ the <code class="docutils literal notranslate"><span class="pre">#</span></code>
 <p class="admonition-title">Note</p>
 <p>For all <cite>reviewers</cite> related attributes, only users with <cite>write</cite> or <cite>admin</cite>
 permission on the repository are used, others are ignored.</p>
+</div>
+</div>
+<div class="section" id="about-status-check-name">
+<h2>About status check name<a class="headerlink" href="#about-status-check-name" title="Permalink to this headline">¶</a></h2>
+<p>When using the <code class="docutils literal notranslate"><span class="pre">status-success</span></code> and <code class="docutils literal notranslate"><span class="pre">status-failure</span></code> conditions, you need
+to use the name of your check service.</p>
+<p>This can be find by opening an existing pull request and scrolling down near
+the <code class="docutils literal notranslate"><span class="pre">Merge</span></code> button.</p>
+<img alt="Status check example" src="_images/status-check-example.png" />
+<p>The name of the status check is writte in bold on the right side. In the
+example above, it should be <code class="docutils literal notranslate"><span class="pre">Uno.UI</span> <span class="pre">-</span> <span class="pre">CI</span></code>. A condition that would make sure
+this checks succeed before doing any action should be written as:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">conditions</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">status-check=Uno.UI - CI</span>
+</pre></div>
 </div>
 </div>
 <div class="section" id="examples">
