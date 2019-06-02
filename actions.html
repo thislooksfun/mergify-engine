@@ -86,10 +86,10 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -124,7 +124,7 @@ mechanism to save developers’ time and ease their duty.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">backport</span></code> action copies the pull request into another branch <em>once the
 pull request has been merged</em>. The <code class="docutils literal notranslate"><span class="pre">backport</span></code> action takes the following
 parameter:</p>
-<table class="colwidths-given docutils align-center">
+<table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 20%" />
@@ -152,7 +152,7 @@ automatically delete the backport head branch that it created.</p>
 <div class="section" id="comment">
 <span id="comment-action"></span><h2>comment<a class="headerlink" href="#comment" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">comment</span></code> action adds a comment to the pull request.</p>
-<table class="colwidths-given docutils align-center">
+<table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 20%" />
@@ -178,7 +178,7 @@ automatically delete the backport head branch that it created.</p>
 <div class="section" id="close">
 <span id="close-action"></span><h2>close<a class="headerlink" href="#close" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">close</span></code> action closes the pull request without merging it.</p>
-<table class="colwidths-given docutils align-center">
+<table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 20%" />
@@ -217,7 +217,7 @@ pull request is closed or merged: you can decide what suits you best using
 pull request is updated. This is especially useful to make sure that a review
 does not stay when the branch is updated (e.g., new commits are added or the
 branch is rebeased).</p>
-<table class="colwidths-given docutils align-center">
+<table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 20%" />
@@ -254,7 +254,7 @@ whose review will be removed.</p></td>
 <div class="section" id="label">
 <span id="label-action"></span><h2>label<a class="headerlink" href="#label" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">label</span></code> action can add or remove <a class="reference external" href="https://help.github.com/articles/about-labels/">labels</a> from a pull request.</p>
-<table class="colwidths-given docutils align-center">
+<table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 20%" />
@@ -286,7 +286,7 @@ whose review will be removed.</p></td>
 <span id="merge-action"></span><h2>merge<a class="headerlink" href="#merge" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">merge</span></code> action merges the pull request into its base branch. The
 <code class="docutils literal notranslate"><span class="pre">merge</span></code> action takes the following parameter:</p>
-<table class="colwidths-given docutils align-center">
+<table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 20%" />

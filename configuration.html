@@ -81,10 +81,10 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -107,7 +107,7 @@ usually <code class="docutils literal notranslate"><span class="pre">master</spa
 <p>The file main entry is a dictionary whose key is named <code class="docutils literal notranslate"><span class="pre">pull_request_rules</span></code>.
 The value of the <code class="docutils literal notranslate"><span class="pre">pull_request_rules</span></code> key must be a list of dictionary.</p>
 <p>Each dictionary must have the following keys:</p>
-<table class="colwidths-given docutils align-center">
+<table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 25%" />
