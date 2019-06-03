@@ -92,18 +92,68 @@
             
   <div class="section" id="bots">
 <h1>Bots<a class="headerlink" href="#bots" title="Permalink to this headline">¶</a></h1>
-<p>Some pull request might be created automatically by other tools, such as
-<a class="reference external" href="https://dependabot.com/">Dependabot</a>. You might decide that there’s no need
-to manually review and approve those pull request as long as your continuous
-integration system validates them.</p>
-<p>The rules below are samples for such services. <code class="docutils literal notranslate"><span class="pre">Travis</span> <span class="pre">CI</span> <span class="pre">-</span> <span class="pre">Pull</span> <span class="pre">Request</span></code> is
-used as the CI, but it can be anything that you need.</p>
-<div class="section" id="id1">
-<h2>Dependabot<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Some pull request might be created automatically by other tools, such as the
+ones sending automatic dependencies update. You might decide that there’s no
+need to manually review and approve those pull request as long as your
+continuous integration system validates them.</p>
+<p>The rules below are samples for such services: they are designed to
+automatically merged those updates without human interview if the continuous
+integration system validates them. <code class="docutils literal notranslate"><span class="pre">Travis</span> <span class="pre">CI</span> <span class="pre">-</span> <span class="pre">Pull</span> <span class="pre">Request</span></code> is used as the
+CI check name here, but it can be anything that you need.</p>
+<div class="section" id="dependabot">
+<h2>Dependabot<a class="headerlink" href="#dependabot" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://dependabot.io">Dependabot</a> sends automatic security update of your
+project dependencies.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">pull_request_rules</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">automatic merge for Dependabot pull requests</span>
     <span class="nt">conditions</span><span class="p">:</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">author=dependabot[bot]</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">status-success=Travis CI - Pull Request</span>
+    <span class="nt">actions</span><span class="p">:</span>
+      <span class="nt">merge</span><span class="p">:</span>
+        <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">merge</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="greenkeeper">
+<h2>Greenkeeper<a class="headerlink" href="#greenkeeper" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://greenkeeper.io">Greenkeeper</a> sends automatic update of your <cite>npm</cite>
+dependencies.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">pull_request_rules</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">automatic merge for Greenkeeper pull requests</span>
+    <span class="nt">conditions</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">author=greenkeeper[bot]</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">status-success=Travis CI - Pull Request</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">status-sucess=greenkeeper/verify</span>
+    <span class="nt">actions</span><span class="p">:</span>
+      <span class="nt">merge</span><span class="p">:</span>
+        <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">merge</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="renovate">
+<h2>Renovate<a class="headerlink" href="#renovate" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://renovatebot.com/">Renovate</a> sends automatic update for your
+project’s dependencies.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">pull_request_rules</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">automatic merge for Renovate pull requests</span>
+    <span class="nt">conditions</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">author=renovate[bot]</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">status-success=Travis CI - Pull Request</span>
+    <span class="nt">actions</span><span class="p">:</span>
+      <span class="nt">merge</span><span class="p">:</span>
+        <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">merge</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pyup">
+<h2>PyUp<a class="headerlink" href="#pyup" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://pyup.io/">PyUp</a> sends automatic update for your project’s Python
+dependencies.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">pull_request_rules</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">automatic merge for PyUp pull requests</span>
+    <span class="nt">conditions</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">author=pyup-bot</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">status-success=Travis CI - Pull Request</span>
     <span class="nt">actions</span><span class="p">:</span>
       <span class="nt">merge</span><span class="p">:</span>
