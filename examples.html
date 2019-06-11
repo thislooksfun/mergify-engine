@@ -61,6 +61,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#using-labels-to-enable-disable-merge">Using Labels to Enable/Disable Merge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#removing-stale-reviews">Removing Stale Reviews</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#require-all-requested-reviews-to-be-approved">Require All Requested Reviews to Be Approved</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-files-to-narrow-down-the-files-to-merge">Using Files to Narrow Down the Files to Merge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#bots">Bots</a></li>
 </ul>
 </li>
@@ -118,12 +119,13 @@ available: pull request author, base branch, labels, files, etc.</p>
 <li><p><a class="reference internal" href="#using-labels-to-enable-disable-merge" id="id9">Using Labels to Enable/Disable Merge</a></p></li>
 <li><p><a class="reference internal" href="#removing-stale-reviews" id="id10">Removing Stale Reviews</a></p></li>
 <li><p><a class="reference internal" href="#require-all-requested-reviews-to-be-approved" id="id11">Require All Requested Reviews to Be Approved</a></p></li>
-<li><p><a class="reference internal" href="#bots" id="id12">Bots</a></p>
+<li><p><a class="reference internal" href="#using-files-to-narrow-down-the-files-to-merge" id="id12">Using Files to Narrow Down the Files to Merge</a></p></li>
+<li><p><a class="reference internal" href="#bots" id="id13">Bots</a></p>
 <ul>
-<li><p><a class="reference internal" href="#dependabot" id="id13">Dependabot</a></p></li>
-<li><p><a class="reference internal" href="#greenkeeper" id="id14">Greenkeeper</a></p></li>
-<li><p><a class="reference internal" href="#renovate" id="id15">Renovate</a></p></li>
-<li><p><a class="reference internal" href="#pyup" id="id16">PyUp</a></p></li>
+<li><p><a class="reference internal" href="#dependabot" id="id14">Dependabot</a></p></li>
+<li><p><a class="reference internal" href="#greenkeeper" id="id15">Greenkeeper</a></p></li>
+<li><p><a class="reference internal" href="#renovate" id="id16">Renovate</a></p></li>
+<li><p><a class="reference internal" href="#pyup" id="id17">PyUp</a></p></li>
 </ul>
 </li>
 </ul>
@@ -291,8 +293,42 @@ least one positive review, obviously.</p>
 <p>Note that if a requested review is dismissed, then it doesn’t count as a review
 that would prevent the merge.</p>
 </div>
+<div class="section" id="using-files-to-narrow-down-the-files-to-merge">
+<h2><a class="toc-backref" href="#id12">Using Files to Narrow Down the Files to Merge</a><a class="headerlink" href="#using-files-to-narrow-down-the-files-to-merge" title="Permalink to this headline">¶</a></h2>
+<p>After the CI pass, to automate the merge only if the specified files are changed
+and no other files, then use <code class="docutils literal notranslate"><span class="pre">files</span></code> to specify the file and <code class="docutils literal notranslate"><span class="pre">#files</span></code> to
+limit the number of files.</p>
+<p>This tweak is useful when you want Mergify to merge only data files which can be
+validated by the script, linter, etc.</p>
+<p>The below sample merges only if both or either one of <code class="docutils literal notranslate"><span class="pre">data1.json</span></code> and
+<code class="docutils literal notranslate"><span class="pre">data2.json</span></code> file is changed and passes Circle CI’s validation tests:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">pull_request_rules</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">automatic merge on CircleCI success if data1.json is changed</span>
+    <span class="nt">conditions</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;status-success=ci/circleci:</span><span class="nv"> </span><span class="s">validate&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">base=master</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">files=data1.json</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;#files=1&quot;</span>
+    <span class="nt">actions</span><span class="p">:</span>
+      <span class="nt">merge</span><span class="p">:</span>
+        <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">merge</span>
+        <span class="nt">strict</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">automatic merge on CircleCI success if list2.json is changed</span>
+    <span class="nt">conditions</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;status-success=ci/circleci:</span><span class="nv"> </span><span class="s">validate&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">base=master</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">files=data2.json</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;#files=1&quot;</span>
+    <span class="nt">actions</span><span class="p">:</span>
+      <span class="nt">merge</span><span class="p">:</span>
+        <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">merge</span>
+        <span class="nt">strict</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="bots">
-<h2><a class="toc-backref" href="#id12">Bots</a><a class="headerlink" href="#bots" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">Bots</a><a class="headerlink" href="#bots" title="Permalink to this headline">¶</a></h2>
 <p>Some pull request might be created automatically by other tools, such as the
 ones sending automatic dependencies update. You might decide that there’s no
 need to manually review and approve those pull request as long as your
@@ -302,7 +338,7 @@ automatically merged those updates without human interview if the continuous
 integration system validates them. <code class="docutils literal notranslate"><span class="pre">Travis</span> <span class="pre">CI</span> <span class="pre">-</span> <span class="pre">Pull</span> <span class="pre">Request</span></code> is used as the
 CI check name here, but it can be anything that you need.</p>
 <div class="section" id="dependabot">
-<h3><a class="toc-backref" href="#id13">Dependabot</a><a class="headerlink" href="#dependabot" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id14">Dependabot</a><a class="headerlink" href="#dependabot" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://dependabot.io">Dependabot</a> sends automatic security update of your
 project dependencies.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">pull_request_rules</span><span class="p">:</span>
@@ -317,7 +353,7 @@ project dependencies.</p>
 </div>
 </div>
 <div class="section" id="greenkeeper">
-<h3><a class="toc-backref" href="#id14">Greenkeeper</a><a class="headerlink" href="#greenkeeper" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">Greenkeeper</a><a class="headerlink" href="#greenkeeper" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://greenkeeper.io">Greenkeeper</a> sends automatic update of your <cite>npm</cite>
 dependencies.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">pull_request_rules</span><span class="p">:</span>
@@ -333,7 +369,7 @@ dependencies.</p>
 </div>
 </div>
 <div class="section" id="renovate">
-<h3><a class="toc-backref" href="#id15">Renovate</a><a class="headerlink" href="#renovate" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">Renovate</a><a class="headerlink" href="#renovate" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://renovatebot.com/">Renovate</a> sends automatic update for your
 project’s dependencies.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">pull_request_rules</span><span class="p">:</span>
@@ -348,7 +384,7 @@ project’s dependencies.</p>
 </div>
 </div>
 <div class="section" id="pyup">
-<h3><a class="toc-backref" href="#id16">PyUp</a><a class="headerlink" href="#pyup" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id17">PyUp</a><a class="headerlink" href="#pyup" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://pyup.io/">PyUp</a> sends automatic update for your project’s Python
 dependencies.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">pull_request_rules</span><span class="p">:</span>
