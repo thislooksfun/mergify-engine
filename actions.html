@@ -344,6 +344,141 @@ force push the rebased pull request.</p></li>
 </tr>
 </tbody>
 </table>
+<div class="section" id="git-merge-workflow-and-mergify-equivalent-configuration">
+<h3>Git merge workflow and Mergify equivalent configuration<a class="headerlink" href="#git-merge-workflow-and-mergify-equivalent-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Examples without <cite>strict: true</cite> are obviously not recommended, more information
+here: <a class="reference internal" href="strict-workflow.html#strict-merge"><span class="std std-ref">Strict Merge</span></a>.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Git merge workflow</p></th>
+<th class="head"><p>Mergify configuration</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git merge --no-ff
+</pre></div>
+</div>
+</td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">merge</span><span class="p">:</span>
+  <span class="n">method</span><span class="p">:</span> <span class="n">merge</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git merge --no-ff
+# Wait for CI to go green
+$ git merge --no-ff
+</pre></div>
+</div>
+</td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">merge</span><span class="p">:</span>
+  <span class="n">strict</span><span class="p">:</span> <span class="n">true</span>
+  <span class="n">method</span><span class="p">:</span> <span class="n">merge</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git rebase
+$ git merge --ff
+</pre></div>
+</div>
+</td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">merge</span><span class="p">:</span>
+  <span class="n">method</span><span class="p">:</span> <span class="n">rebase</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git merge --no-ff
+# Wait for CI to go green
+$ git rebase + git merge --ff
+</pre></div>
+</div>
+</td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">merge</span><span class="p">:</span>
+  <span class="n">strict</span><span class="p">:</span> <span class="n">true</span>
+  <span class="n">method</span><span class="p">:</span> <span class="n">rebase</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git rebase
+# Wait for CI to go green
+$ git merge --no-ff
+</pre></div>
+</div>
+</td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">merge</span><span class="p">:</span>
+  <span class="n">strict</span><span class="p">:</span> <span class="n">true</span>
+  <span class="n">strict_method</span><span class="p">:</span> <span class="n">rebase</span>
+  <span class="n">method</span><span class="p">:</span> <span class="n">merge</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span># squash all commits
+$ git merge --ff
+</pre></div>
+</div>
+</td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">merge</span><span class="p">:</span>
+  <span class="n">method</span><span class="p">:</span> <span class="n">squash</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git merge --no-ff
+# Wait for CI to go green
+# squash all commits
+git merge --ff
+</pre></div>
+</div>
+</td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">merge</span><span class="p">:</span>
+  <span class="n">strict</span><span class="p">:</span> <span class="n">true</span>
+  <span class="n">method</span><span class="p">:</span> <span class="n">squash</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git rebase
+# Wait for CI to go green
+# squash all commits
+$ git merge --ff
+</pre></div>
+</div>
+</td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">merge</span><span class="p">:</span>
+  <span class="n">strict</span><span class="p">:</span> <span class="n">true</span>
+  <span class="n">strict_method</span><span class="p">:</span> <span class="n">rebase</span>
+  <span class="n">method</span><span class="p">:</span> <span class="n">squash</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git rebase
+# squash all commits
+# Mergify wait for CI
+$ git merge --no-ff
+</pre></div>
+</div>
+</td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">merge</span><span class="p">:</span>
+  <span class="n">strict</span><span class="p">:</span> <span class="n">true</span>
+  <span class="n">strict_method</span><span class="p">:</span> <span class="n">squash</span>
+  <span class="n">method</span><span class="p">:</span> <span class="n">merge</span>
+</pre></div>
+</div>
+<p><cite>(not yet implemented)</cite></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 
