@@ -113,12 +113,12 @@ GitHub documentation</a>.</p>
 </div>
 <div class="section" id="mergify-is-unable-to-merge-my-pull-request-due-to-my-branch-protection-settings">
 <h2>Mergify is unable to merge my pull request due to my branch protection settings<a class="headerlink" href="#mergify-is-unable-to-merge-my-pull-request-due-to-my-branch-protection-settings" title="Permalink to this headline">¶</a></h2>
-<p>This happens usually if you limit the peopel that have the authorization to
+<p>This happens usually if you limit the people that have the authorization to
 merge pull requests. GitHub does not offer any way to authorize GitHub
 Application (such as Mergify) to merge pull requests if you decide to set up
 branch protection.</p>
-<p>You should disable this branch protection setting if you want to use Mergify
-merge action.</p>
+<p>You should not use “Restrict who can push to matching branches” if you want to
+use Mergify merge action.</p>
 </div>
 <div class="section" id="why-did-mergify-seem-to-have-merged-my-pull-request-whereas-all-conditions-were-not-true">
 <h2>Why did Mergify seem to have merged my pull request whereas all conditions were not true?<a class="headerlink" href="#why-did-mergify-seem-to-have-merged-my-pull-request-whereas-all-conditions-were-not-true" title="Permalink to this headline">¶</a></h2>
