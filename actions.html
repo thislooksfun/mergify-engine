@@ -52,6 +52,7 @@
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration File Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conditions.html">Conditions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Actions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#assign">assign</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#backport">backport</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#comment">comment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#close">close</a></li>
@@ -110,6 +111,32 @@ actions set in the rule are executed by Mergify. The actions should be put
 under the <code class="docutils literal notranslate"><span class="pre">actions</span></code> key in the <code class="docutils literal notranslate"><span class="pre">pull_request_rules</span></code> entry — see
 <a class="reference internal" href="configuration.html#configuration-file-format"><span class="std std-ref">Configuration File Format</span></a>.</p>
 <p>The list of available actions is listed below, with their parameters:</p>
+<div class="section" id="assign">
+<span id="assign-action"></span><h2>assign<a class="headerlink" href="#assign" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">assign</span></code> action assigns users to the pull request.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key Name</p></th>
+<th class="head"><p>Value Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Value Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">users</span></code></p></td>
+<td><p>array of string</p></td>
+<td><p>None</p></td>
+<td><p>The users to assign to the pull request</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section" id="backport">
 <span id="backport-action"></span><h2>backport<a class="headerlink" href="#backport" title="Permalink to this headline">¶</a></h2>
 <p>It is common for software to have (some of) their major versions maintained
