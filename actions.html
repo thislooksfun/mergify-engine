@@ -60,6 +60,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#dismiss-reviews">dismiss_reviews</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#label">label</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#merge">merge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#request-reviews">request_reviews</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="strict-workflow.html">Strict Merge</a></li>
@@ -368,6 +369,32 @@ force push the rebased pull request.</p></li>
 <li><p>GPG signed commits will lost their signatures.</p></li>
 </ul>
 </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="request-reviews">
+<span id="request-reviews-action"></span><h2>request_reviews<a class="headerlink" href="#request-reviews" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">request_reviews</span></code> action requests reviews from users for the pull request.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key Name</p></th>
+<th class="head"><p>Value Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Value Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">users</span></code></p></td>
+<td><p>array of string</p></td>
+<td><p>None</p></td>
+<td><p>The users to request reviews from</p></td>
 </tr>
 </tbody>
 </table>
