@@ -100,10 +100,10 @@
             
   <div class="section" id="configuration-file-format">
 <span id="id1"></span><h1>Configuration File Format<a class="headerlink" href="#configuration-file-format" title="Permalink to this headline">¶</a></h1>
-<p>The configuration file for Mergify should be named <code class="docutils literal notranslate"><span class="pre">.mergify.yml</span></code> and must be
-placed in the root directory of your GitHub repository. Mergify uses the
-default repository branch configured on GitHub to read the configuration file —
-usually <code class="docutils literal notranslate"><span class="pre">master</span></code>. The file format is <a class="reference external" href="http://yaml.org/">YAML</a>.</p>
+<p>The configuration file for Mergify should be named <code class="docutils literal notranslate"><span class="pre">.mergify.yml</span></code> or
+<code class="docutils literal notranslate"><span class="pre">.mergify/config.yml</span></code> and must be placed in the root directory of your GitHub
+repository. Mergify uses the default repository branch configured on GitHub to
+read the configuration file — usually <code class="docutils literal notranslate"><span class="pre">master</span></code>. The file format is <a class="reference external" href="http://yaml.org/">YAML</a>.</p>
 <p>The file main entry is a dictionary whose key is named <code class="docutils literal notranslate"><span class="pre">pull_request_rules</span></code>.
 The value of the <code class="docutils literal notranslate"><span class="pre">pull_request_rules</span></code> key must be a list of dictionary.</p>
 <p>Each dictionary must have the following keys:</p>
@@ -157,8 +157,8 @@ actions are executed in that same order.</p>
 </div>
 <div class="section" id="validation">
 <h2>Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h2>
-<p>Usually <code class="docutils literal notranslate"><span class="pre">.mergify.yml</span></code> configuration change should be done via a pull
-request, in order for Mergify to validate it.</p>
+<p>Usually, changes to the configuration file should be done via a pull request,
+in order for Mergify to validate it.</p>
 <p>However if you are creating the initial configuration or want to validate it
 locally before sending a pull request, you can use:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> &lt;my_project&gt;

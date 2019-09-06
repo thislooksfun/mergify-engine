@@ -147,8 +147,7 @@ postive reviews are enough.</p>
 <div class="section" id="enabling-the-strict-workflow">
 <h2>Enabling the Strict Workflow<a class="headerlink" href="#enabling-the-strict-workflow" title="Permalink to this headline">¶</a></h2>
 <p>To enable the <em>strict</em> workflow, you need to set the value of <code class="docutils literal notranslate"><span class="pre">strict</span></code> to
-<code class="docutils literal notranslate"><span class="pre">true</span></code> in the <a class="reference internal" href="actions.html#merge-action"><span class="std std-ref">merge</span></a> action.</p>
-<p>To enable it on a pull request, you can write a <code class="docutils literal notranslate"><span class="pre">mergify.yml</span></code> like this:</p>
+<code class="docutils literal notranslate"><span class="pre">true</span></code> in the <a class="reference internal" href="actions.html#merge-action"><span class="std std-ref">merge</span></a> action. For example:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">pull_request_rules</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">automatic merge with strict</span>
     <span class="nt">conditions</span><span class="p">:</span>
