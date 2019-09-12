@@ -382,8 +382,8 @@ queue the mergeable pull requests and update them one at a time serially.</p></t
 <td><p>string</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">merge</span></code></p></td>
 <td><p>Base branch update method when strict mode is enabled.
-Possible values are <code class="docutils literal notranslate"><span class="pre">merge</span></code> or <code class="docutils literal notranslate"><span class="pre">rebase</span></code>.
-Note that <code class="docutils literal notranslate"><span class="pre">rebase</span></code> has many drawbacks due to the change of all commits
+Possible values are <code class="docutils literal notranslate"><span class="pre">merge</span></code> or <code class="docutils literal notranslate"><span class="pre">rebase</span></code>.</p>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">rebase</span></code> has many drawbacks due to the change of all commits
 sha of the pull request. For example:</p>
 <ul class="simple">
 <li><p>Your contributor will need to “force push” its own branch if it adds new commits.</p></li>
@@ -391,6 +391,7 @@ sha of the pull request. For example:</p>
 <li><p>GitHub branch protection of the contributor repository may refuse Mergify to
 force push the rebased pull request.</p></li>
 <li><p>GPG signed commits will lost their signatures.</p></li>
+<li><p>Also see: <a class="reference internal" href="faq.html#faq-strict-rebase"><span class="std std-ref">I see a rebase and force-push done by a member of the repository, but Mergify actually did it.</span></a></p></li>
 </ul>
 </td>
 </tr>

@@ -58,6 +58,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-fix-the-pull-request-can-t-be-updated-with-latest-base-branch-changes-owner-doesn-t-allow-modification-error">How do I fix the <em>“Pull request can’t be updated with latest base branch changes, owner doesn’t allow modification”</em> error?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#mergify-is-unable-to-merge-my-pull-request-due-to-my-branch-protection-settings">Mergify is unable to merge my pull request due to my branch protection settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#why-did-mergify-seem-to-have-merged-my-pull-request-whereas-all-conditions-were-not-true">Why did Mergify seem to have merged my pull request whereas all conditions were not true?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#i-see-a-rebase-and-force-push-done-by-a-member-of-the-repository-but-mergify-actually-did-it">I see a rebase and force-push done by a member of the repository, but Mergify actually did it.</a></li>
 </ul>
 </li>
 </ul>
@@ -130,6 +131,17 @@ Mergify too. GitHub detects that A’s commits are a subset of B’s commits and
 therefore decides to automatically marks pull request A as merged.</p>
 <p>Be sure that Mergify did nothing on the pull request A if it told you so in the
 Checks tab. This is GitHub UI magic.</p>
+</div>
+<div class="section" id="i-see-a-rebase-and-force-push-done-by-a-member-of-the-repository-but-mergify-actually-did-it">
+<span id="faq-strict-rebase"></span><h2>I see a rebase and force-push done by a member of the repository, but Mergify actually did it.<a class="headerlink" href="#i-see-a-rebase-and-force-push-done-by-a-member-of-the-repository-but-mergify-actually-did-it" title="Permalink to this headline">¶</a></h2>
+<p>If you are using <a class="reference internal" href="strict-workflow.html#strict-merge"><span class="std std-ref">Strict Merge</span></a> with <code class="docutils literal notranslate"><span class="pre">strict_method</span></code> set to <code class="docutils literal notranslate"><span class="pre">rebase</span></code>,
+Mergify will rebase your pull request to get it up-to-date with its base
+branch. The branch needs to be then force-pushed to the pull request owner
+branch.</p>
+<p>GitHub Applications are not allowed to do that so. This is a GitHub limitation
+that we already have reported.</p>
+<p>In order to make this works, Mergify borrows a token from one of your
+repository member and uses it to force-push the rebased branch.</p>
 </div>
 </div>
 
